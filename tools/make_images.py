@@ -104,7 +104,7 @@ def share_image():
     d.text((x, 190), "MEDPOINT", font=serif, fill=WHITE)
     d.text((x + 4, 300), "P  A  R  T  N  E  R  S", font=sans, fill=(143, 195, 255))
     d.line([(x, 362), (x + 640, 362)], fill=(143, 195, 255, 120), width=2)
-    d.text((x, 386), "Healthcare Finance & Revenue Cycle Recruiting", font=small, fill=(225, 232, 245))
+    d.text((x, 386), "Healthcare Recruiting & Staffing", font=small, fill=(225, 232, 245))
     d.text((x, 430), "Atlanta, GA  ·  Powered by NorthPoint", font=small, fill=(170, 185, 215))
     return img.convert("RGB")
 

@@ -692,6 +692,8 @@ footer { background: #08142f; padding: 64px 0 30px; color: rgba(255,255,255,.6);
 .hero-grid .hero-search-bar { margin: 0; }
 .hero-grid .hero-search-sub { justify-content: flex-start; }
 .hero h1, .page-hero h1, .optin-hero h1 { text-wrap: balance; }
+.hero .hero-lede { margin: -4px 0 16px; max-width: 520px; font-size: 1.05rem; }
+@media (max-width: 960px) { .hero .hero-lede { margin: -4px auto 16px; } }
 .hero-card { background: var(--white); color: var(--ink); border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.38); overflow: hidden; text-align: left; }
 .hero-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 22px 14px; border-bottom: 1px solid var(--border); }
 .hero-card-kicker { display: block; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue-dark); }
