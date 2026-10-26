@@ -66,12 +66,7 @@ def fill(html):
             .replace("{{SITE}}", SITE).replace("{{UNS}}", UNS))
 
 
-BRAND = '''<img src="img/mp-mark.svg" alt="" class="brand-mark" width="38" height="44">
-        <span class="brand-text">
-          <span class="brand-name">MedPoint</span>
-          <span class="brand-group">Partners</span>
-          <span class="brand-tag">Powered by NorthPoint</span>
-        </span>'''
+BRAND = '<img src="img/medpoint-logo.png" alt="MedPoint Partners — powered by NorthPoint" class="brand-logo" width="170" height="58">'
 
 NAV = '''
 <!-- ── Navigation ───────────────────────────── -->
@@ -158,7 +153,7 @@ FOOTER = '''
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="brand brand--light" aria-label="MedPoint Partners — home">
+        <a href="index.html" class="brand-chip" aria-label="MedPoint Partners — home">
           ''' + BRAND + '''
         </a>
         <p>Healthcare recruiting and staffing for hospitals, physician practices, and healthcare organizations — clinical and non-clinical — backed by NorthPoint's 20+ years of recruiting.</p>
@@ -206,7 +201,7 @@ ORG = {
     "name": "MedPoint Partners",
     "alternateName": ["Medpoint Partners", "MedPoint"],
     "url": SITE,
-    "logo": {"@type": "ImageObject", "url": SITE + "/img/favicon-512.png"},
+    "logo": {"@type": "ImageObject", "url": SITE + "/img/medpoint-logo.png"},
     "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
     "address": {"@type": "PostalAddress", "addressLocality": "Atlanta", "addressRegion": "GA", "addressCountry": "US"},
     "telephone": ["+1-404-250-0790", "+1-678-777-5627"],
@@ -225,7 +220,6 @@ def head(file, title, desc, extra_schema=None, extra_head=""):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="img/mp-mark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="apple-touch-icon" href="img/favicon-180.png">
   <title>{title}</title>
@@ -245,7 +239,7 @@ def head(file, title, desc, extra_schema=None, extra_head=""):
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
   <meta name="twitter:image" content="{SITE}/img/og-image.png">
-  <meta name="theme-color" content="#0c1a40">
+  <meta name="theme-color" content="#0b1f3d">
   <script type="application/ld+json">
 {schema}
   </script>
@@ -506,7 +500,7 @@ HOME = '''
         "datePosted":j.date_posted||new Date().toISOString().slice(0,10),
         "validThrough":new Date(Date.now()+60*24*60*60*1000).toISOString().slice(0,10),
         "employmentType":"FULL_TIME",
-        "hiringOrganization":{"@type":"Organization","name":"MedPoint Partners","sameAs":"{{SITE}}","logo":"{{SITE}}/img/favicon-512.png"},
+        "hiringOrganization":{"@type":"Organization","name":"MedPoint Partners","sameAs":"{{SITE}}","logo":"{{SITE}}/img/medpoint-logo.png"},
         "jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":(loc[0]||'Atlanta').trim(),"addressRegion":(loc[1]||'GA').trim(),"addressCountry":"US"}},
         "description":"Healthcare role placed by MedPoint Partners, Atlanta. Contact us to learn more.",
         "url":/^https:\\/\\//.test(j.job_url||'')?j.job_url:'{{JOB_BOARD}}'};
