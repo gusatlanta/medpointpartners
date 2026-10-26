@@ -375,7 +375,7 @@ def example(style=""):
 
 
 AUDIENCE_STEPS = '''<li><strong>We build your list</strong> — the exact people you want to hire.</li>
-        <li><strong>Our AI recruiting agent writes the letter with you</strong> — then reaches out and invites them to apply for your job.</li>
+        <li><strong>Our AI recruiting assistant writes the letter with you</strong> — then reaches out and invites them to apply for your job.</li>
         <li><strong>Candidates apply and film a video introduction.</strong></li>
         <li><strong>Our AI matches and scores every candidate for you.</strong></li>
         <li><strong>You reach out directly</strong> — or we do it all for you.</li>'''
@@ -610,7 +610,7 @@ HOME = '''
       <h2 class="section-title">The Exact People You Want to Hire — <em>Invited to Apply</em></h2>
       <div class="section-divider"></div>
       <div class="pay-when-hire">[[ico:check]] <span>No upfront cost — you only pay when we're successful: when you hire. <span class="pwh-2">And we can payroll them for you.</span></span></div>
-      <p class="section-sub" style="margin-bottom:16px;">We build a list for your HR or recruiting team with the exact people you want to hire — the nurses, PAs, techs, and office staff already doing the job somewhere else. Our AI recruiting agent writes the letter with you and invites them to apply — then our AI matches and scores every candidate for you.</p>
+      <p class="section-sub" style="margin-bottom:16px;">We build a list for your HR or recruiting team with the exact people you want to hire — the nurses, PAs, techs, and office staff already doing the job somewhere else. Our AI recruiting assistant writes the letter with you and invites them to apply — then our AI matches and scores every candidate for you.</p>
       <p class="section-sub" style="margin-bottom:28px;">It proactively builds a talent bench for every position on your org chart. You just build out the org chart.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <a href="services.html#audience" class="btn btn-primary">See How It Works →</a>
@@ -621,7 +621,7 @@ HOME = '''
       <ol class="num-steps">
         ''' + AUDIENCE_STEPS + '''
       </ol>
-      <div class="audience-extras"><strong class="fee-line">When you hire, pick how you pay: we payroll them for one bill rate — or one flat fee, quoted up front.</strong><br>We can payroll your people as Employer of Record · 401(k) for every hire · Benefits available<br>We help you the entire time — live office hours for any questions · Membership includes our <a href="https://www.skool.com/100xrecruiting" target="_blank" rel="noopener">100X Recruiting community on Skool</a><br><strong>Our AI recruiting agent comes with a 100% satisfaction guarantee.</strong></div>
+      <div class="audience-extras"><strong class="fee-line">When you hire, pick how you pay: we payroll them for one bill rate — or one flat fee, quoted up front.</strong><br>We can payroll your people as Employer of Record · 401(k) for every hire · Benefits available<br>We help you the entire time — live office hours for any questions · Membership includes our <a href="https://www.skool.com/100xrecruiting" target="_blank" rel="noopener">100X Recruiting community on Skool</a><br><strong>Our AI recruiting assistant comes with a 100% satisfaction guarantee.</strong></div>
     </div>
   </div>
 </section>
@@ -918,7 +918,7 @@ SERVICES = page_hero("Services", "Our Recruiting Services",
         </ul>
         <div class="fee">
           <div class="fee-label">We Help You the Entire Time</div>
-          <div class="fee-text"><strong style="color:var(--white);">And you only pay when we're successful.</strong> We even have live office hours to help you with any questions — plus membership gets you access to our <a href="https://www.skool.com/100xrecruiting" target="_blank" rel="noopener">100X Recruiting community on Skool</a>. Our AI recruiting agent comes with a 100% satisfaction guarantee.</div>
+          <div class="fee-text"><strong style="color:var(--white);">And you only pay when we're successful.</strong> We even have live office hours to help you with any questions — plus membership gets you access to our <a href="https://www.skool.com/100xrecruiting" target="_blank" rel="noopener">100X Recruiting community on Skool</a>. Our AI recruiting assistant comes with a 100% satisfaction guarantee.</div>
         </div>
       </div>
     </div>
