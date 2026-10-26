@@ -88,5 +88,69 @@
   ],
   "work_mode": "Remote or Hybrid preferred (open to onsite)",
   "highlight": "Ran billing audits and tracked billing trends to improve results at a healthcare practice-software company"
+ },
+ {
+  "code": "MP-05",
+  "title": "Revenue Accountant",
+  "location": "Atlanta, GA metro",
+  "years": 10,
+  "creds": [
+   "Health Information Technology"
+  ],
+  "systems": [
+   "Epic",
+   "Siemens Soarian",
+   "Sage Intacct",
+   "Deltek",
+   "Power BI"
+  ],
+  "specialties": [
+   "Healthcare revenue & billing",
+   "Health-tech accounting",
+   "Revenue accounting"
+  ],
+  "work_mode": "Remote or Hybrid",
+  "highlight": "10+ years in revenue accounting and billing, including healthcare and health tech; knows Epic and Soarian"
+ },
+ {
+  "code": "MP-06",
+  "title": "Practice Manager",
+  "location": "Atlanta, GA metro",
+  "systems": [
+   "QuickBooks"
+  ],
+  "specialties": [
+   "Urgent care operations",
+   "Team leadership (15)"
+  ],
+  "work_mode": "Hybrid or Onsite",
+  "highlight": "Urgent care practice manager leading a staff of 15"
+ },
+ {
+  "code": "MP-07",
+  "title": "Senior Revenue Cycle Data Analyst",
+  "location": "Dallas-Fort Worth, TX metro",
+  "creds": [
+   "Lean Six Sigma Green Belt"
+  ],
+  "specialties": [
+   "Revenue cycle analytics",
+   "Process improvement",
+   "Team lead (8)"
+  ],
+  "work_mode": "Remote or Hybrid",
+  "highlight": "Senior revenue cycle data analyst and Six Sigma Green Belt who has led a team of 8"
+ },
+ {
+  "code": "MP-08",
+  "title": "EMT Director of Operations",
+  "location": "Akron, OH metro",
+  "specialties": [
+   "On-site occupational health clinics",
+   "EMS operations",
+   "Multi-site staff leadership"
+  ],
+  "work_mode": "Remote, Hybrid or Onsite",
+  "highlight": "Runs on-site medical clinics at construction sites, leading about 75 staff across locations"
  }
 ]
