@@ -1,0 +1,92 @@
+[
+ {
+  "code": "MP-01",
+  "title": "Revenue Cycle Manager",
+  "location": "Atlanta, GA metro",
+  "years": 20,
+  "creds": [
+   "CPC",
+   "CPAR"
+  ],
+  "systems": [
+   "athenaIDX",
+   "eClinicalWorks",
+   "ModMed",
+   "Cerner",
+   "Waystar"
+  ],
+  "specialties": [
+   "Full revenue cycle leadership",
+   "Denials & appeals",
+   "EDI / claims",
+   "Multi-site physician practices",
+   "Dermatology"
+  ],
+  "work_mode": "Remote (open to hybrid)",
+  "highlight": "Cut A/R over 90 days ~25% and held a 95% clean-claim rate across a multi-site dermatology group"
+ },
+ {
+  "code": "MP-02",
+  "title": "Senior Medical Coder",
+  "location": "Atlanta, GA metro",
+  "years": 22,
+  "creds": [
+   "CPC",
+   "Medical Billing & Insurance certificate"
+  ],
+  "systems": [
+   "EMR systems",
+   "Document management (DMS)",
+   "CPT / ICD-10-CM / HCPCS references"
+  ],
+  "specialties": [
+   "Anesthesia & pain management coding",
+   "Surgical coding",
+   "Coding audit & compliance",
+   "Medical policy coding",
+   "Orthopedics"
+  ],
+  "work_mode": "Hybrid (open to onsite)",
+  "highlight": "22+ yrs coding; kept 95%+ audit accuracy and checked codes for 120+ medical policies at a national health insurer"
+ },
+ {
+  "code": "MP-03",
+  "title": "Director of Billing",
+  "location": "Atlanta, GA metro",
+  "systems": [
+   "CollaborateMD",
+   "KIPU",
+   "Monday.com"
+  ],
+  "specialties": [
+   "Denial management",
+   "A/R recovery",
+   "Verification of benefits",
+   "Billing team leadership"
+  ],
+  "work_mode": "Remote (or onsite in metro Atlanta)",
+  "highlight": "Cut A/R over 90 days 35% in six months and raised first-pass clean claims above 95%"
+ },
+ {
+  "code": "MP-04",
+  "title": "Billing/AR Account Manager",
+  "location": "Atlanta, GA metro",
+  "creds": [
+   "Medical Assisting Certificate"
+  ],
+  "systems": [
+   "ClinicSource",
+   "ChiroTouch",
+   "Salesforce",
+   "EMR systems"
+  ],
+  "specialties": [
+   "Healthcare billing & A/R",
+   "Billing audits",
+   "Revenue cycle",
+   "Bookkeeping (AP/AR, GL)"
+  ],
+  "work_mode": "Remote or Hybrid preferred (open to onsite)",
+  "highlight": "Ran billing audits and tracked billing trends to improve results at a healthcare practice-software company"
+ }
+]
