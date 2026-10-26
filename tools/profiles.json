@@ -65,7 +65,8 @@
    "Billing team leadership"
   ],
   "work_mode": "Remote (or onsite in metro Atlanta)",
-  "highlight": "Cut A/R over 90 days 35% in six months and raised first-pass clean claims above 95%"
+  "highlight": "Cut A/R over 90 days 35% in six months and raised first-pass clean claims above 95%",
+  "years": 6
  },
  {
   "code": "MP-04",
@@ -124,7 +125,8 @@
    "Team leadership (15)"
   ],
   "work_mode": "Hybrid or Onsite",
-  "highlight": "Urgent care practice manager leading a staff of 15"
+  "highlight": "Urgent care practice manager leading a staff of 15",
+  "years": 10
  },
  {
   "code": "MP-07",
@@ -139,7 +141,8 @@
    "Team lead (8)"
   ],
   "work_mode": "Remote or Hybrid",
-  "highlight": "Senior revenue cycle data analyst and Six Sigma Green Belt who has led a team of 8"
+  "highlight": "Senior revenue cycle data analyst and Six Sigma Green Belt who has led a team of 8",
+  "years": 11
  },
  {
   "code": "MP-08",
@@ -151,6 +154,7 @@
    "Multi-site staff leadership"
   ],
   "work_mode": "Remote, Hybrid or Onsite",
-  "highlight": "Runs on-site medical clinics at construction sites, leading about 75 staff across locations"
+  "highlight": "Runs on-site medical clinics at construction sites, leading about 75 staff across locations",
+  "years": 20
  }
 ]
