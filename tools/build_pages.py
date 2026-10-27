@@ -1513,8 +1513,42 @@ PAGES = [
      PARTNERS, None, ""),
 ]
 
+# Old ClickFunnels addresses -> the new page that covers the same thing. Each gets a tiny page
+# that forwards at once (Render's own redirect rules never took effect for these).
+OLD_LINKS = {
+    "about-us.html": "/about.html",
+    "our-mission.html": "/about.html",
+    "how-we-work.html": "/services.html",
+    "contract-staffing.html": "/temp-staffing.html",
+    "blog.html": "/services.html",
+    "blog/index.html": "/services.html",
+    "blog/director-of-revenue-cycle.html": "/",
+    "blog/director-of-revenue-cycle--443fc.html": "/",
+    "thankyou.html": "/",
+    "product3.html": "/",
+    "sitemap.html": "/sitemap.xml",
+}
+
+
+def forward_page(to):
+    url = SITE + to
+    return f'''<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>MedPoint Partners</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{url}">
+<meta http-equiv="refresh" content="0; url={to}">
+<script>location.replace("{to}" + location.hash);</script>
+</head><body><p>This page moved. <a href="{to}">Go to the new page</a>.</p></body></html>
+'''
+
+
 if __name__ == "__main__":
     for file, title, desc, body, schema, extra in PAGES:
         html = head(file, title, desc, schema, extra) + NAV + body + FOOTER
         (OUT / file).write_text(fill(html), encoding="utf-8")
         print("wrote", file)
+    for file, to in OLD_LINKS.items():
+        (OUT / file).parent.mkdir(exist_ok=True)
+        (OUT / file).write_text(forward_page(to), encoding="utf-8")
+    print("wrote", len(OLD_LINKS), "forwarding pages for old addresses")
