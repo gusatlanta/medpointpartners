@@ -1,37 +1,89 @@
 # MedPoint Partners
 
-> Healthcare recruiting and staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners helps hospitals, physician practices, and healthcare organizations hire clinical and non-clinical people — as temp, temp-to-perm, or direct hire, plus retained search and RPO — and payrolls temps as Employer of Record.
+> K-12 school staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners staffs school districts and charter schools with the people IEP services depend on: speech-language pathologists, occupational and physical therapists, school psychologists, BCBAs and RBTs, counselors, social workers, special education teachers and paraprofessionals, interpreters, teachers of the deaf and visually impaired, and school nurses. Contract for the school year or semester comes first, onsite or by teletherapy; contract-to-hire and direct hire are available. MedPoint also recruits for hospitals and physician practices.
+
+## Why school staffing
+- Required by law: the Individuals with Disabilities Education Act (IDEA) entitles every student with an IEP to the special education and related services written into it.
+- Publicly funded: federal IDEA Part B grants, state and local special education funds, and school-based Medicaid for eligible services.
+- Industry view: on October 29, 2026, one national school staffing firm's public job board listed 18,484 open jobs, 78% of them contract, with about 3,000 new postings a week (the counts may include some healthcare roles).
+
+## Speech-language pathologists first
+SLPs are the largest school role (5,282 of 20,475 open school job postings on one national school staffing job board, October 2026). MedPoint staffs CCC-SLPs, clinical fellows (CF-SLP), SLP assistants, bilingual SLPs and teletherapy SLPs: https://www.medpointpartners.com/school-slp-staffing.html (teletherapy: https://www.medpointpartners.com/school-slp-teletherapy.html).
+
+## Big metro and small rural districts
+Metro districts get volume, bilingual staff, backlog help and fast replacements. Small and rural districts get teletherapy when no one lives within driving distance, itinerant clinicians shared across campuses, low-incidence roles a few hours a week, and one point of contact for every role.
+
+## What makes MedPoint different
+- A live ticker of blinded school candidates (no name, employer or school) on every school page.
+- QR codes on every school page and printable flyer open a match page: a district pastes or picks its job description and sees its best-matched blinded candidate, plus the 30-second video intro every candidate is invited to film. https://www.medpointpartners.com/school-match.html
+- Local independent reps ("We put you in business for yourself"): https://www.medpointpartners.com/sell-for-us.html
+- Blinded shortlist in 48 to 72 hours; licenses and certifications checked before a candidate is sent; every résumé arrives with answers to the district's screening questions; MedPoint is employer of record for contract staff (weekly payroll, taxes, workers' comp, one invoice).
 
 ## Contact
+- Place a school job order (two steps): https://www.medpointpartners.com/hire-school-staff.html
 - Phone: 404-250-0790 or 678-777-5627
 - Email: gus@stafffinancial.com
-- Location: Atlanta, GA. Serves the Southeast; remote roles such as coding and billing are filled nationwide.
-- Request talent: https://www.medpointpartners.com/request-talent.html
+- Location: Atlanta, GA. Contract and teletherapy school roles nationwide; healthcare roles across the Southeast, remote roles nationwide.
+
+## School roles (23)
+- All roles: https://www.medpointpartners.com/school-staffing.html
+- Teletherapy and remote roles: https://www.medpointpartners.com/school-teletherapy-staffing.html
+
+### Therapy & Related Services
+- Speech-Language Pathologists: CCC-SLPs, bilingual and teletherapy SLPs, and SLPAs for every caseload. https://www.medpointpartners.com/school-slp-staffing.html (remote: https://www.medpointpartners.com/school-slp-teletherapy.html)
+- SLP Clinical Fellows (CFY): New SLPs in their clinical fellowship, matched with the mentoring your state and ASHA require. https://www.medpointpartners.com/slp-clinical-fellow-staffing.html (remote: https://www.medpointpartners.com/slp-clinical-fellow-teletherapy.html)
+- Occupational Therapists: OTR/Ls and COTAs for fine motor, sensory and self-care IEP goals. https://www.medpointpartners.com/school-occupational-therapist-staffing.html (remote: https://www.medpointpartners.com/school-ot-teletherapy.html)
+- Physical Therapists: PTs and PTAs for mobility, gross motor, positioning and equipment. https://www.medpointpartners.com/school-physical-therapist-staffing.html
+
+### Special Education & Instruction
+- Special Education Teachers: Certified SPED teachers for resource, inclusion and self-contained rooms. https://www.medpointpartners.com/special-education-teacher-staffing.html (remote: https://www.medpointpartners.com/virtual-special-education-teacher-staffing.html)
+- Paraprofessionals: Classroom paras, one-to-one aides and instructional assistants. https://www.medpointpartners.com/paraprofessional-staffing.html
+- Teachers: Certified teachers for hard-to-fill subjects and long-term leaves. https://www.medpointpartners.com/teacher-staffing.html (remote: https://www.medpointpartners.com/virtual-teacher-staffing.html)
+- Reading Specialists: Reading specialists and dyslexia interventionists for Tier 2 and Tier 3 groups. https://www.medpointpartners.com/reading-specialist-staffing.html (remote: https://www.medpointpartners.com/virtual-reading-specialist-staffing.html)
+- Educational Diagnosticians: Diagnosticians for academic and cognitive testing, reports and eligibility. https://www.medpointpartners.com/educational-diagnostician-staffing.html (remote: https://www.medpointpartners.com/remote-educational-diagnostician-staffing.html)
+- Adaptive PE Teachers: Adapted PE teachers who assess students and teach PE built around the IEP. https://www.medpointpartners.com/adaptive-pe-teacher-staffing.html
+
+### Behavior & Mental Health
+- School Psychologists: NCSPs and LSSPs for evaluations, eligibility, counseling and crisis support. https://www.medpointpartners.com/school-psychologist-staffing.html (remote: https://www.medpointpartners.com/remote-school-psychologist-staffing.html)
+- School Counselors: Certified school counselors for academics, college and career, and SEL. https://www.medpointpartners.com/school-counselor-staffing.html (remote: https://www.medpointpartners.com/virtual-school-counselor-staffing.html)
+- School Social Workers: MSW-level social workers for counseling, social histories and family outreach. https://www.medpointpartners.com/school-social-worker-staffing.html (remote: https://www.medpointpartners.com/remote-school-social-worker-staffing.html)
+- School Mental Health Therapists: LPCs, LCSWs and LMFTs for school-based therapy and IEP counseling minutes. https://www.medpointpartners.com/school-therapist-staffing.html (remote: https://www.medpointpartners.com/school-mental-health-teletherapy.html)
+- BCBAs: BCBAs and BCaBAs for FBAs, behavior plans and RBT supervision. https://www.medpointpartners.com/school-bcba-staffing.html (remote: https://www.medpointpartners.com/remote-bcba-staffing.html)
+- RBTs: RBTs who run behavior plans one-to-one and in classrooms. https://www.medpointpartners.com/school-rbt-staffing.html
+- ABA Therapists & Behavior Techs: ABA therapists, behavior techs and interventionists for autism programs. https://www.medpointpartners.com/school-aba-therapist-staffing.html
+
+### Hearing, Vision & Health
+- School Nurses: RNs and LPNs for campus clinics, one-to-one care and health plans. https://www.medpointpartners.com/school-nurse-staffing.html
+- Educational Audiologists: Audiologists for assessments, hearing technology and DHH IEPs. https://www.medpointpartners.com/educational-audiologist-staffing.html
+- Sign Language Interpreters: ASL interpreters who meet your state's EIPA or certification standard. https://www.medpointpartners.com/school-sign-language-interpreter-staffing.html (remote: https://www.medpointpartners.com/video-remote-interpreter-staffing.html)
+- Deaf & Hard of Hearing Teachers: Itinerant and classroom teachers of the deaf and hard of hearing. https://www.medpointpartners.com/deaf-hard-of-hearing-teacher-staffing.html (remote: https://www.medpointpartners.com/remote-deaf-hard-of-hearing-teacher-staffing.html)
+- Teachers of the Visually Impaired: TVIs for braille, assistive technology and functional vision assessments. https://www.medpointpartners.com/teacher-visually-impaired-staffing.html (remote: https://www.medpointpartners.com/remote-tvi-staffing.html)
+- Orientation & Mobility Specialists: COMS-certified specialists who teach safe, independent travel. https://www.medpointpartners.com/orientation-mobility-specialist-staffing.html
+
+## School staffing by state
+- California: https://www.medpointpartners.com/school-staffing-california.html
+- Texas: https://www.medpointpartners.com/school-staffing-texas.html
+- Michigan: https://www.medpointpartners.com/school-staffing-michigan.html
+- Pennsylvania: https://www.medpointpartners.com/school-staffing-pennsylvania.html
+- Illinois: https://www.medpointpartners.com/school-staffing-illinois.html
+- Georgia: https://www.medpointpartners.com/school-staffing-georgia.html
+
+## Resources for district leaders
+- What Does a School Speech-Language Pathologist Do?: https://www.medpointpartners.com/what-does-a-school-slp-do.html
+- What Does a School Psychologist Do?: https://www.medpointpartners.com/what-does-a-school-psychologist-do.html
+- A Superintendent's Guide to IDEA Staffing: https://www.medpointpartners.com/idea-staffing-guide-for-superintendents.html
+- All resources: https://www.medpointpartners.com/school-resources.html
+
+## Healthcare recruiting and staffing
+MedPoint also helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-perm or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
+- Roles: nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied health and therapy; medical assistants and front office; revenue cycle, coding and healthcare finance; healthcare leadership.
+- Services: https://www.medpointpartners.com/services.html
+- Healthcare temps: https://www.medpointpartners.com/temp-staffing.html
+- Request healthcare talent: https://www.medpointpartners.com/request-talent.html
+- Partner Program (10% of direct hire fees, 25% of temp net spread, paid monthly): https://www.medpointpartners.com/partners.html
 - Job board: https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg
-
-## Roles placed
-- Nursing: registered nurses (RN), LPNs, CNAs, charge nurses and nurse managers, directors of nursing, chief nursing officers
-- Physicians and advanced practice: physicians (MD/DO), medical directors, nurse practitioners (NP), physician assistants (PA-C), CRNAs, hospitalists and specialists
-- Allied health and therapy: radiologic, CT and MRI technologists, sonographers, surgical technologists, medical lab and phlebotomy, respiratory therapists, physical, occupational and speech therapists
-- Medical office and patient access: medical assistants, front desk and receptionists, schedulers and patient access, referral coordinators, precertification and prior authorization, credentialing and payer enrollment
-- Revenue cycle, coding and finance: CFOs and controllers, revenue cycle directors, medical coders (CPC, CCS), CDI specialists, billing, A/R and collections, reimbursement and cost report analysts
-- Healthcare leadership: CEOs, COOs and hospital administrators, practice administrators, practice and clinic managers, directors of operations, quality and compliance, healthcare HR
-
-## Care settings served
-Hospitals and health systems; physician groups and specialty practices; orthopedic and spine practices; ambulatory surgery centers; urgent care and primary care; home health and hospice; behavioral health; senior living and post-acute; labs, imaging and diagnostics; physical therapy and rehab clinics; PE-backed platforms and MSOs; community health centers and FQHCs.
-
-## How it works
-- Blinded shortlist of pre-screened candidates in 48 to 72 hours.
-- Licenses and certifications checked before a candidate is sent.
-- Custom screening questionnaire for every search; each résumé arrives with the candidate's answers.
-- Optional candidate video introductions.
-- Direct hire is contingency (fee on placement) with a replacement guarantee. Retained search is paid in installments with a full replacement guarantee. Temps are billed hourly with MedPoint as Employer of Record (weekly payroll, taxes, workers' comp, W-2). Temp-to-perm converts with a conversion fee agreed upfront.
-- 105+ years of combined recruiting experience; 1,000+ candidate video introductions filmed.
 
 ## Pages
 - Home: https://www.medpointpartners.com/
-- Services: https://www.medpointpartners.com/services.html
-- Temp staffing: https://www.medpointpartners.com/temp-staffing.html
 - About: https://www.medpointpartners.com/about.html
-- Partner Program (10% of direct hire fees, 25% of temp net spread, paid monthly): https://www.medpointpartners.com/partners.html
 - Contact: https://www.medpointpartners.com/contact.html
