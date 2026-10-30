@@ -2296,8 +2296,26 @@ TELE_HUB = school_hero('<a href="school-staffing.html">School Roles</a><span>/</
         "Can't Find Someone Local?", "Tell us the role and the caseload — we'll send remote candidates licensed in your state.")
 
 
+def guide_band():
+    """The salary guide banner at the very top of the home page. It says who it's for,
+    because the rest of the page speaks to districts."""
+    return f'''
+<!-- ── Salary guide banner ────────────────────── -->
+<a class="guide-band" href="salary-guide.html">
+  <div class="container guide-band-inner">
+    <img class="guide-band-cover" src="img/{GUIDE["cover"]}" alt="" width="46" height="60">
+    <div class="guide-band-text">
+      <strong>For school therapists: the 2026 Salary Guide</strong>
+      <span>What schools pay SLPs, OTs, PTs and more, from BLS data. Median K-12 pay for an SLP: {money(PAY[0]["k12"])}.</span>
+    </div>
+    <span class="guide-band-go">Get the Free Guide &rarr;</span>
+  </div>
+</a>
+'''
+
+
 def home_top():
-    return '''
+    return guide_band() + '''
 <!-- ── Hero: school staffing ──────────────────── -->
 <section class="hero">
   <div class="container hero-grid">
