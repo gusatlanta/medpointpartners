@@ -16,6 +16,7 @@ from html import unescape
 from pathlib import Path
 
 from school_articles import ARTICLES
+from school_pay import GUIDE, PAY, money, school_share
 from school_roles import DISPLAY_ORDER, GROUPS, ROLES
 from school_states import STATES
 
@@ -160,6 +161,7 @@ FOOTER = '''
           <li><a href="school-match.html">Match a Job Description</a></li>
           <li><a href="sell-for-us.html">Sell for Us</a></li>
           <li><a href="school-resources.html">Resources</a></li>
+          <li><a href="salary-guide.html">School Therapist Salary Guide</a></li>
           <li><a href="services.html">Healthcare Recruiting</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="{{JOB_BOARD}}" target="_blank" rel="noopener">Job Board ↗</a></li>
@@ -207,8 +209,12 @@ ORG = {
 }
 
 
+OG_IMAGES = {"salary-guide.html": GUIDE["og"]}   # shared links show this instead of og-image.png
+
+
 def head(file, title, desc, extra_schema=None, extra_head="", robots="index, follow"):
     url = SITE + "/" + ("" if file == "index.html" else file)
+    og = f'{SITE}/img/{OG_IMAGES.get(file, "og-image.png")}'
     graph = [ORG] + (extra_schema or [])
     schema = json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False)
     return f'''<!DOCTYPE html>
@@ -227,14 +233,14 @@ def head(file, title, desc, extra_schema=None, extra_head="", robots="index, fol
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="{SITE}/img/og-image.png">
+  <meta property="og:image" content="{og}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
-  <meta name="twitter:image" content="{SITE}/img/og-image.png">
+  <meta name="twitter:image" content="{og}">
   <meta name="theme-color" content="#0b1f3d">
   <script type="application/ld+json">
 {schema}
@@ -3103,6 +3109,137 @@ def state_entry(st):
             school_schema(st["file"], f'School Staffing in {st["name"]}', st["desc"], crumbs, st["faq"] + [FAQ_IDEA, FAQ_FAST]), "")
 
 
+# ── School therapist salary guide ─────────────────────────────
+# Same layout as the LawStaff salary guide page. The numbers come from tools/school_pay.py and
+# the files from tools/make_salary_guide.py. The audience is therapists, so it asks for their role
+# instead of a company, and the lead goes through the same /api/public/inquiry as the site's forms.
+SALARY_ROLES = ["SLP", "SLPA", "Clinical Fellow (CF-SLP)", "OT", "COTA", "PT", "PTA", "School Psychologist",
+                "School Counselor", "School Social Worker", "Other"]
+
+SALARY_CSS = """
+  <style>
+    [hidden] { display: none !important; }
+    .optin-hero { background: linear-gradient(150deg, #0B1F3D 0%, #136B99 100%); padding: 120px 0 140px; position: relative; overflow: hidden; }
+    .optin-hero::before { content: ''; position: absolute; top: -80px; right: -100px; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(111,197,212,.16) 0%, transparent 70%); }
+    .optin-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: start; margin-top: -60px; position: relative; z-index: 10; }
+    .optin-pitch { padding-top: 20px; }
+    .sg-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 26px; max-width: 640px; }
+    .sg-tile { background: rgba(255,255,255,.08); border: 1px solid rgba(111,197,212,.35); border-radius: 12px; padding: 14px; }
+    .sg-tile b { display: block; font-family: var(--font-head); font-size: 1.9rem; font-weight: 700; color: var(--teal-light); line-height: 1; }
+    .sg-tile span { display: block; margin-top: 6px; font-size: .86rem; color: rgba(255,255,255,.82); line-height: 1.35; }
+    .sg-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .sg-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: .95rem; }
+    .sg-table td.n { text-align: right; font-weight: 700; font-family: var(--font-head); color: var(--navy); }
+    .sg-table tr:last-child td { border-bottom: 0; }
+    .sg-inside { margin: 16px 0 0; padding-left: 1.1rem; display: grid; gap: 8px; font-size: .95rem; color: var(--text); }
+    .sg-gh { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+    .sg-cover { width: 92px; flex: none; border-radius: 6px; box-shadow: 0 6px 18px rgba(11,31,61,.25); }
+    .sg-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .sg-err { color: #b91c1c; font-weight: 600; font-size: .88rem; margin-top: 10px; }
+    .sg-done { display: grid; gap: 12px; text-align: center; }
+    .sg-done a:not(.btn) { color: var(--blue); text-decoration: underline; }
+    @media (max-width: 860px) { .optin-layout { grid-template-columns: 1fr; gap: 28px; } .optin-pitch { padding-top: 0; } }
+    @media (max-width: 640px) { .sg-tiles { grid-template-columns: 1fr; } }
+  </style>"""
+
+SALARY_JS = """
+<script>
+(function () {
+  var form = document.getElementById('guide-form');
+  if (!form) return;
+  var err = document.getElementById('g-err'), btn = document.getElementById('g-go');
+  function ready() { form.hidden = true; document.getElementById('g-done').hidden = false; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = Object.fromEntries(new FormData(form));
+    if (!d.name.trim() || !/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(d.email.trim()) || !d.role) {
+      err.textContent = 'Please add your name, email and role.'; err.hidden = false; return;
+    }
+    btn.disabled = true; btn.textContent = 'One moment…'; err.hidden = true;
+    var notes = ['Source: MedPoint Partners (medpointpartners.com)', 'Salary guide download: School Therapists 2026',
+                 'Role: ' + d.role, d.state ? 'State: ' + d.state : ''].filter(Boolean).join('\\n');
+    // A missed lead is better than a therapist who can't get the guide, so a failed save still opens it.
+    fetch('https://100xrecruiting.com/api/public/inquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employer_name: d.name.trim(), employer_email: d.email.trim(), employer_company: '',
+                             inquiry_type: 'medpoint-salary-guide', notes: notes, hp_website: d.hp_website })
+    }).then(ready, ready);
+  });
+})();
+</script>"""
+
+SALARY_ROWS = "".join(f'<tr><td>{r["role"]}</td><td class="n">{money(r["k12"])}</td></tr>' for r in PAY)
+SALARY_OPTIONS = "".join(f"<option>{o}</option>" for o in SALARY_ROLES)
+_SLP = PAY[0]
+
+SALARY_GUIDE = f"""
+<section class="optin-hero">
+  <div class="container" style="position:relative;z-index:2;">
+    <div style="max-width:680px;position:relative;z-index:2;">
+      <div class="hero-badge">Salary Guide 2026 · School Therapists</div>
+      <h1 style="color:var(--white);font-size:clamp(1.9rem,4vw,2.9rem);margin-bottom:16px;">What School Therapists <em style="color:var(--teal-light);font-style:normal;">Get Paid</em></h1>
+      <p style="color:rgba(255,255,255,.78);font-size:1.05rem;line-height:1.7;">U.S. Bureau of Labor Statistics data for {len(PAY)} school roles: K-12 pay against every other setting, Georgia pay and job growth.</p>
+      <div class="sg-tiles">
+        <div class="sg-tile"><b>{money(_SLP["k12"])}</b><span>Median K-12 pay for an SLP</span></div>
+        <div class="sg-tile"><b>{school_share(_SLP)}</b><span>Of SLPs work in K-12 schools</span></div>
+        <div class="sg-tile"><b>{_SLP["growth"]}%</b><span>Projected SLP job growth, 2025 to 2035</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;background:var(--off-white);">
+  <div class="container">
+    <div class="optin-layout">
+
+      <div class="optin-pitch">
+        <div class="section-label" style="margin-top:60px;">Inside the guide</div>
+        <h2 class="section-title" style="font-size:1.6rem;">K-12 Median Pay by Role</h2>
+        <table class="sg-table" style="margin-top:18px;"><tbody>{SALARY_ROWS}</tbody></table>
+        <p style="font-size:.82rem;color:var(--text-muted);margin-top:10px;">National medians for elementary and secondary schools, May 2025, every experience level. The guide also has all-settings pay, hourly rates and pay ranges.</p>
+        <ul class="sg-inside">
+          <li>K-12 pay against the all-settings median for {len(PAY)} roles</li>
+          <li>Why to compare offers by the day, not the year</li>
+          <li>Georgia pay by role</li>
+          <li>Job growth through 2035</li>
+          <li>Five ways to use this in your next contract</li>
+        </ul>
+      </div>
+
+      <div class="form-card" style="margin-top:-30px;box-shadow:var(--shadow-lg);">
+        <form id="guide-form" novalidate>
+          <div class="sg-gh">
+            <div>
+              <h3 style="margin-bottom:4px;">Get the Salary Guide</h3>
+              <p style="color:var(--text-muted);font-size:.88rem;margin:0;">{GUIDE["pages"]} pages. Download it right away.</p>
+            </div>
+            <img class="sg-cover" src="img/{GUIDE["cover"]}" alt="Cover of the MedPoint Partners Salary Guide 2026: School Therapists" width="92" height="119">
+          </div>
+          <div class="sg-hp" aria-hidden="true"><label for="g-website">Website</label><input id="g-website" name="hp_website" tabindex="-1" autocomplete="off"></div>
+          <div class="form-group"><label for="g-name">Your Name *</label><input type="text" id="g-name" name="name" class="form-control" autocomplete="name" required></div>
+          <div class="form-group"><label for="g-email">Email *</label><input type="email" id="g-email" name="email" class="form-control" autocomplete="email" required></div>
+          <div class="form-group"><label for="g-role">Your Role *</label><select id="g-role" name="role" class="form-control" required><option value="">Choose one</option>{SALARY_OPTIONS}</select></div>
+          <div class="form-group"><label for="g-state">State</label><input type="text" id="g-state" name="state" class="form-control" autocomplete="address-level1"></div>
+          <button type="submit" id="g-go" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;">Download the Salary Guide &rarr;</button>
+          <p class="sg-err" id="g-err" hidden></p>
+          <p style="font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:12px;">We'll send school job openings now and then. You can tell us to stop any time.</p>
+        </form>
+        <div class="sg-done" id="g-done" hidden>
+          <h3 style="margin:0;">Your guide is ready.</h3>
+          <a class="btn btn-gold btn-lg" href="downloads/{GUIDE["pdf"]}" style="justify-content:center;">Download the PDF</a>
+          <a href="downloads/{GUIDE["web"]}">Or read it online</a>
+          <p style="font-size:.88rem;color:var(--text-muted);margin:6px 0 0;">Looking for a school role? <a href="{{{{JOB_BOARD}}}}" target="_blank" rel="noopener">See open jobs</a> or <a href="{GUIDE["group"]}" target="_blank" rel="noopener">join the School Therapist Network</a>.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+""" + SALARY_JS
+
+
 SCHOOL_PAGES = [
     ("school-staffing.html", "Every School Role We Staff: K-12 Districts | MedPoint Partners",
      "23 K-12 school roles on contract, onsite or by teletherapy: SLPs, OTs, PTs, school psychologists, BCBAs, counselors, SPED teachers, TVIs and nurses.",
@@ -3127,6 +3264,10 @@ SCHOOL_PAGES = [
      "Explainers and guides for special education directors and superintendents: what school SLPs and psychologists do, and how to staff IDEA services.",
      RESOURCES, school_schema("school-resources.html", "School Staffing Resources", "Resources for district leaders.",
                               [("Resources", SITE + "/school-resources.html")], HUB_FAQ, kind=None), ""),
+    ("salary-guide.html", "School Therapist Salary Guide 2026 | MedPoint Partners",
+     "What schools pay SLPs, OTs, PTs, school psychologists, counselors and social workers, from BLS data, and how it compares with other settings. Free download.",
+     SALARY_GUIDE, school_schema("salary-guide.html", "School Therapist Salary Guide 2026", "BLS pay data for school therapists.",
+                                 [("Salary Guide", SITE + "/salary-guide.html")], None, kind=None), SALARY_CSS),
     ("school-match.html", "Match a School Job Description | MedPoint Partners",
      "Paste a school job description and see the best-matched blinded candidate we're representing now: SLPs, OTs, psychologists, BCBAs, nurses and more.",
      SCHOOL_MATCH, school_schema("school-match.html", "School Job Description Match",
@@ -3206,7 +3347,7 @@ def write_qr_codes():
     print("wrote", len(ROLES) + 1, "QR codes")
 
 
-BUILD_DATE = "2026-10-29"   # lastmod for sitemap.xml; bump it when pages change
+BUILD_DATE = "2026-10-30"   # lastmod for sitemap.xml; bump it when pages change
 
 
 def page_priority(file):
@@ -3279,6 +3420,7 @@ Metro districts get volume, bilingual staff, backlog help and fast replacements.
 ## Resources for district leaders
 """ + "\n".join(f"- {plain(a['h1'])}: {u(a['file'])}" for a in ARTICLES) + f"""
 - All resources: {u("school-resources.html")}
+- School therapist salary guide 2026 (BLS pay for SLPs, OTs, PTs, school psychologists and more): {u("salary-guide.html")}
 
 ## Healthcare recruiting and staffing
 MedPoint also helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-perm or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
