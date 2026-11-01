@@ -818,10 +818,6 @@ TITLE_GROUPS = [
     ("Healthcare Leadership", ["CEO, COO &amp; Hospital Administrator", "Practice Administrator",
                                "Practice &amp; Clinic Manager", "Director of Operations",
                                "Quality &amp; Compliance Manager", "Healthcare HR Manager"]),
-    ("K&#8209;12 Schools (our focus)", ["Speech-Language Pathologists &amp; Clinical Fellows",
-                                         "School OTs, PTs &amp; Educational Audiologists", "School Psychologists &amp; Diagnosticians",
-                                         "BCBAs, RBTs &amp; ABA Therapists", "Counselors, Social Workers &amp; Therapists",
-                                         "SPED Teachers, Paras &amp; School Nurses"]),
 ]
 
 
@@ -954,7 +950,7 @@ SERVICES = page_hero("Services", "Our Recruiting Services",
     </div>
   </div>
 </section>
-{{SCHOOL_SERVICES}}
+
 <!-- ── Titles ─────────────────────────────────── -->
 <section class="section section-alt" id="titles" style="scroll-margin-top:calc(var(--nav-h) + 8px);">
   <div class="container">
@@ -1848,15 +1844,6 @@ def role_groups(tag="h2"):
       </div>
     </div>''')
     return "\n".join(out)
-
-
-def role_columns():
-    """Every role as a compact link list, one column per group (home page)."""
-    cols = []
-    for key, name, icon in GROUPS:
-        links = "".join(f'<li><a href="{r["file"]}">{r["nav"]}</a></li>' for r in SHOWN if r["group"] == key)
-        cols.append(f'<div class="role-col"><h3><span class="feature-icon">[[ico:{icon}]]</span>{name}</h3><ul>{links}</ul></div>')
-    return '<div class="role-cols">' + "".join(cols) + "</div>"
 
 
 def law_band():
@@ -2935,27 +2922,6 @@ SCHOOL_FLYER = '''
 </script>
 '''
 
-# Services (now the healthcare page) keeps a pointer to the school side
-SERVICES = SERVICES.replace("{{SCHOOL_SERVICES}}", '''
-<!-- ── School staffing ────────────────────────── -->
-<section class="section section-alt" id="schools" style="scroll-margin-top:calc(var(--nav-h) + 8px);">
-  <div class="container">
-    <div class="centered">
-      <span class="section-kicker">K&#8209;12 Schools &amp; Districts</span>
-      <h2 class="section-title">School Staffing Is Our Focus</h2>
-      <div class="section-divider"></div>
-      <p class="section-sub">Required by law and publicly funded: 23 school roles on contract for the school year or semester, onsite or by teletherapy.</p>
-    </div>
-''' + role_columns() + '''
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:32px;">
-      <a href="school-staffing.html" class="btn btn-primary">Explore School Staffing →</a>
-      <a href="hire-school-staff.html" class="btn btn-outline-dark">Hire School Staff</a>
-    </div>
-  </div>
-</section>
-''')
-
-
 def role_title(r):
     """'School SLP Staffing: Contract & Teletherapy', without a second 'for Schools' or a tail that
     pushes the title past ~70 characters."""
@@ -3158,8 +3124,6 @@ SCHOOL_PAGES = [
                                  [ROLES_CRUMB, ("Match", SITE + "/school-match.html")], None, kind=None), SCHOOL_MATCH_HEAD),
 ] + [role_entry(r) for r in SHOWN] + [tele_entry(r) for r in TELE_ROLES] + [state_entry(st) for st in STATES] + [
     (a["file"], a["title"], a["desc"], article_page(a), article_schema(a), "") for a in ARTICLES]
-# Pages that open with the school edge strip themselves; every other page gets it above the footer
-SCHOOL_LED = {"index.html"} | {e[0] for e in SCHOOL_PAGES}
 # School staffing moved to hireschoolstaff.com (Gus, 2026-10-31). These pages forward there under
 # the same file names, and links to them from the pages that stay go straight to the new site.
 MOVED = {e[0] for e in SCHOOL_PAGES} | {"school-flyer.html"}
@@ -3270,7 +3234,7 @@ def page_priority(file):
 def write_sitemap():
     kept = [f for f, *_ in PAGES if f not in MOVED]
     rows = "\n".join(f"  <url><loc>{SITE}/{'' if f == 'index.html' else f}</loc><lastmod>{BUILD_DATE}</lastmod>"
-                     f"<changefreq>{'weekly' if f in SCHOOL_LED else 'monthly'}</changefreq><priority>{page_priority(f)}</priority></url>"
+                     f"<changefreq>{'weekly' if f == 'index.html' else 'monthly'}</changefreq><priority>{page_priority(f)}</priority></url>"
                      for f in kept)
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                                      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + rows + "\n</urlset>\n",
@@ -3309,15 +3273,11 @@ Nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied he
     print("wrote llms.txt")
 
 
-EDGE_FOOT = '<div class="edge-foot"><div class="container"><span class="section-kicker">School Staffing Is Our Focus</span></div></div>' + edge_strip(here=False)
-
-
 if __name__ == "__main__":
     for file, title, desc, body, schema, extra in PAGES:
         if file in MOVED:
             continue
-        foot = "" if file in SCHOOL_LED else EDGE_FOOT   # the school edge on every page
-        html = head(file, title, desc, schema, extra) + NAV + body + foot + FOOTER
+        html = head(file, title, desc, schema, extra) + NAV + body + FOOTER
         (OUT / file).write_text(link_moved(fill(html)), encoding="utf-8")
     print("wrote", len(PAGES) - len(SCHOOL_PAGES), "pages")
     for file in MOVED:
