@@ -22,6 +22,7 @@ from school_states import STATES
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent
 SITE = "https://www.medpointpartners.com"
+NEW_SITE = "https://www.hireschoolstaff.com"   # where the school pages moved
 JOB_BOARD = "https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg"
 EMAIL = "gus@stafffinancial.com"
 UNS = "https://images.unsplash.com/"
@@ -3295,6 +3296,9 @@ SCHOOL_PAGES = [
     (a["file"], a["title"], a["desc"], article_page(a), article_schema(a), "") for a in ARTICLES]
 # Pages that open with the school edge strip themselves; every other page gets it above the footer
 SCHOOL_LED = {"index.html"} | {e[0] for e in SCHOOL_PAGES}
+# School staffing moved to hireschoolstaff.com (Gus, 2026-10-31). These pages forward there under
+# the same file names, and links to them from the pages that stay go straight to the new site.
+MOVED = {e[0] for e in SCHOOL_PAGES} | {"school-flyer.html"}
 
 PAGES = [
     ("index.html", "School Staffing for K-12 Districts | MedPoint Partners",
@@ -3350,6 +3354,25 @@ def forward_page(to):
 '''
 
 
+def moved_page(file):
+    """A school page's new home. Search engines read an instant refresh as a permanent move, so
+    unlike forward_page it stays indexable. ?d= and #anchors come along for printed QR codes."""
+    url = f"{NEW_SITE}/{file}"
+    return f'''<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>Hire School Staff</title>
+<link rel="canonical" href="{url}">
+<meta http-equiv="refresh" content="0; url={url}">
+<script>location.replace("{url}" + location.search + location.hash);</script>
+</head><body><p>This page moved to Hire School Staff. <a href="{url}">Go to the new page</a>.</p></body></html>
+'''
+
+
+def link_moved(html):
+    """Point links to moved pages straight at the new site, so nobody bounces through a forward."""
+    return re.sub(r'href="(' + "|".join(re.escape(f) for f in MOVED) + r')', rf'href="{NEW_SITE}/\1', html)
+
+
 def write_qr_codes():
     """One SVG QR code per school role (plus one for all of them) for the pages and flyers.
     Needs segno (pip install segno); without it the committed SVGs are kept."""
@@ -3365,7 +3388,7 @@ def write_qr_codes():
     print("wrote", len(ROLES) + 1, "QR codes")
 
 
-BUILD_DATE = "2026-10-30"   # lastmod for sitemap.xml; bump it when pages change
+BUILD_DATE = "2026-10-31"   # lastmod for sitemap.xml; bump it when pages change
 
 
 def page_priority(file):
@@ -3381,18 +3404,19 @@ def page_priority(file):
 
 
 def write_sitemap():
+    kept = [f for f, *_ in PAGES if f not in MOVED]
     rows = "\n".join(f"  <url><loc>{SITE}/{'' if f == 'index.html' else f}</loc><lastmod>{BUILD_DATE}</lastmod>"
                      f"<changefreq>{'weekly' if f in SCHOOL_LED else 'monthly'}</changefreq><priority>{page_priority(f)}</priority></url>"
-                     for f, *_ in PAGES)
+                     for f in kept)
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                                      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + rows + "\n</urlset>\n",
                                      encoding="utf-8")
-    print("wrote sitemap.xml with", len(PAGES), "pages")
+    print("wrote sitemap.xml with", len(kept), "pages")
 
 
 def write_llms():
     """llms.txt: what the firm does and every page worth reading, school staffing first."""
-    u = lambda f: f"{SITE}/{f}"   # noqa: E731
+    u = lambda f: f"{NEW_SITE if f in MOVED else SITE}/{f}"   # noqa: E731
     groups = []
     for key, name, _ in GROUPS:
         lines = [f"- {plain(r['nav'])}: {plain(r['card'])} {u(r['file'])}"
@@ -3402,6 +3426,8 @@ def write_llms():
     text = f"""# MedPoint Partners
 
 > K-12 school staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners staffs school districts and charter schools with the people IEP services depend on: speech-language pathologists, occupational and physical therapists, school psychologists, BCBAs and RBTs, counselors, social workers, special education teachers and paraprofessionals, interpreters, teachers of the deaf and visually impaired, and school nurses. Contract for the school year or semester comes first, onsite or by teletherapy; contract-to-hire and direct hire are available. MedPoint also recruits for hospitals and physician practices.
+
+School staffing now lives at Hire School Staff, {NEW_SITE}. The school links below go there.
 
 ## Why school staffing
 - Required by law: the Individuals with Disabilities Education Act (IDEA) entitles every student with an IEP to the special education and related services written into it.
@@ -3463,16 +3489,15 @@ EDGE_FOOT = '<div class="edge-foot"><div class="container"><span class="section-
 
 if __name__ == "__main__":
     for file, title, desc, body, schema, extra in PAGES:
+        if file in MOVED:
+            continue
         foot = "" if file in SCHOOL_LED else EDGE_FOOT   # the school edge on every page
         html = head(file, title, desc, schema, extra) + NAV + body + foot + FOOTER
-        (OUT / file).write_text(fill(html), encoding="utf-8")
-    print("wrote", len(PAGES), "pages")
-    # The flyer page is for printing, not for search results
-    html = head("school-flyer.html", "School Staffing Flyers | MedPoint Partners",
-                "Printable K-12 school staffing flyers with a QR code that matches a district's job description to a blinded candidate.",
-                None, "", robots="noindex, follow") + NAV + SCHOOL_FLYER + FOOTER
-    (OUT / "school-flyer.html").write_text(fill(html), encoding="utf-8")
-    print("wrote school-flyer.html")
+        (OUT / file).write_text(link_moved(fill(html)), encoding="utf-8")
+    print("wrote", len(PAGES) - len(SCHOOL_PAGES), "pages")
+    for file in MOVED:
+        (OUT / file).write_text(moved_page(file), encoding="utf-8")
+    print("wrote", len(MOVED), "pages that forward to hireschoolstaff.com")
     write_qr_codes()
     write_sitemap()
     write_llms()
