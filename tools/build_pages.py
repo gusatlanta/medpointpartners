@@ -85,7 +85,7 @@ def fill(html):
     """Swap [[ico:name]] tokens and site constants into a template string."""
     html = re.sub(r"\[\[ico:([a-z]+)\]\]", lambda m: ico(m.group(1)), html)
     return (html.replace("{{JOB_BOARD}}", JOB_BOARD).replace("{{EMAIL}}", EMAIL)
-            .replace("{{SITE}}", SITE).replace("{{UNS}}", UNS))
+            .replace("{{SITE}}", SITE).replace("{{NEW_SITE}}", NEW_SITE).replace("{{UNS}}", UNS))
 
 
 BRAND = '<img src="img/medpoint-logo.png" alt="MedPoint Partners — powered by NorthPoint" class="brand-logo" width="170" height="58">'
@@ -99,42 +99,16 @@ NAV = '''
     </a>
     <div class="nav-menu" id="navMenu">
       <ul class="nav-links" id="navLinks">
-        <li class="has-mega">
-          <a href="school-staffing.html">School Roles <span class="chevron">▾</span></a>
-          <div class="mega-menu">
-{{SCHOOL_MEGA}}
-            <div class="mega-featured">
-              <div class="mega-featured-placeholder">[[ico:speech]]</div>
-              <h4>Speech-Language Pathologists: Our Most-Requested Role</h4>
-              <a href="school-slp-staffing.html" class="learn">School SLP Staffing →</a>
-            </div>
-          </div>
-        </li>
-        <li><a href="school-teletherapy-staffing.html">Teletherapy</a></li>
-        <li class="has-mega">
-          <a href="school-staffing.html#states">States <span class="chevron">▾</span></a>
-          <div class="dropdown-menu">
-{{STATE_NAV}}
-          </div>
-        </li>
-        <li><a href="school-resources.html">Resources</a></li>
-        <li class="has-mega">
-          <a href="services.html">Healthcare <span class="chevron">▾</span></a>
-          <div class="dropdown-menu">
-            <a href="services.html">Healthcare Recruiting Services</a>
-            <a href="services.html#titles">Healthcare Specialties</a>
-            <a href="temp-staffing.html">Healthcare Temps</a>
-            <a href="about.html#settings">Care Settings</a>
-            <a href="request-talent.html">Request Healthcare Talent</a>
-            <a href="partners.html">Partner Program</a>
-          </div>
-        </li>
-        <li><a href="sell-for-us.html">Sell for Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#titles">Specialties</a></li>
+        <li><a href="temp-staffing.html">Temp Staffing</a></li>
         <li><a href="about.html">About</a></li>
+        <li><a href="partners.html">Partner Program</a></li>
+        <li><a href="{{NEW_SITE}}/">School Staffing ↗</a></li>
       </ul>
       <div class="nav-ctas">
         <a href="{{JOB_BOARD}}" target="_blank" rel="noopener" class="btn btn-outline-dark">Job Board</a>
-        <a href="hire-school-staff.html" class="btn btn-primary">Hire School Staff</a>
+        <a href="request-talent.html" class="btn btn-primary">Hire Top Talent</a>
       </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -151,20 +125,16 @@ FOOTER = '''
         <a href="index.html" class="brand-chip" aria-label="MedPoint Partners — home">
           ''' + BRAND + '''
         </a>
-        <p>School staffing for K&#8209;12 districts and charter schools — therapy, special education, behavior, mental health, hearing, vision and nursing — plus healthcare recruiting, backed by NorthPoint's 20+ years of recruiting.</p>
+        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-perm and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
         <ul>
-          <li><a href="school-staffing.html">School Roles</a></li>
-          <li><a href="school-teletherapy-staffing.html">Teletherapy</a></li>
-          <li><a href="hire-school-staff.html">Hire School Staff</a></li>
-          <li><a href="school-match.html">Match a Job Description</a></li>
-          <li><a href="sell-for-us.html">Sell for Us</a></li>
-          <li><a href="school-resources.html">Resources</a></li>
-          <li><a href="salary-guide.html">School Therapist Salary Guide</a></li>
           <li><a href="services.html">Healthcare Recruiting</a></li>
+          <li><a href="temp-staffing.html">Temp Staffing</a></li>
+          <li><a href="partners.html">Partner Program</a></li>
           <li><a href="about.html">About Us</a></li>
+          <li><a href="{{NEW_SITE}}/">School Staffing ↗</a></li>
           <li><a href="{{JOB_BOARD}}" target="_blank" rel="noopener">Job Board ↗</a></li>
         </ul>
       </div>
@@ -174,9 +144,8 @@ FOOTER = '''
           <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
           <li><a href="tel:+14042500790">404-250-0790</a></li>
           <li><a href="tel:+16787775627">678-777-5627</a></li>
-          <li><a href="contact.html">Send a Message</a></li>
-          <li><a href="hire-school-staff.html">Place a School Job Order</a></li>
           <li><a href="request-talent.html">Request Healthcare Talent</a></li>
+          <li><a href="contact.html">Send a Message</a></li>
           <li><span>Atlanta, GA · Serving the Southeast &amp; nationwide</span></li>
         </ul>
       </div>
@@ -201,7 +170,7 @@ ORG = {
     "alternateName": ["Medpoint Partners", "MedPoint"],
     "url": SITE,
     "logo": {"@type": "ImageObject", "url": SITE + "/img/medpoint-logo.png"},
-    "description": "K-12 school staffing and healthcare recruiting firm in Atlanta, GA. We staff school districts and charter schools with speech-language pathologists, occupational and physical therapists, school psychologists, BCBAs and RBTs, counselors, social workers, special education teachers and paraprofessionals, interpreters, teachers of the deaf and visually impaired, and school nurses — on contract, onsite or by teletherapy. We also place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
+    "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
     "address": {"@type": "PostalAddress", "addressLocality": "Atlanta", "addressRegion": "GA", "addressCountry": "US"},
     "telephone": ["+1-404-250-0790", "+1-678-777-5627"],
     "email": EMAIL,
@@ -476,15 +445,15 @@ HOME_HEAD = '''
   window.MP_HEALTH = /(nurs(e|ing)|\\b(rn|lpn|lvn|cna|crna|np|aprn|pa-c)\\b|physician|medical|clinical|clinic\\b|patient|hospital\\b|healthcare|health system|home health|behavioral health|hospice|surg(ical|ery)|ortho|radiolog|x-ray|\\bmri\\b|sonograph|ultrasound|phlebotom|pharmac(y|ist)|respiratory|physical therap|occupational therap|speech.language|dental|dentist|hygienist|sterile processing|coding|coder|\\bcdi\\b|revenue cycle|\\brcm\\b|reimburse|cost report|credential|precert|prior auth)/i;
   </script>'''
 
-# The healthcare half of the home page: below the school sections since the 2026-10-29
-# school pivot, so its heading is an h2 (the page's h1 is the school hero's).
+# The home page. School staffing moved to hireschoolstaff.com on 2026-10-31, so healthcare leads
+# again and a banner above it sends districts to the new site.
 HEALTH_HOME = '''
 <!-- ── Healthcare recruiting & staffing ─────── -->
-<section class="hero hero--second" id="healthcare">
+<section class="hero" id="healthcare">
   <div class="container hero-grid">
     <div class="hero-inner">
-      <span class="hero-kicker">Also: Healthcare Recruiting &amp; Staffing · Atlanta, GA</span>
-      <h2 class="hero-title">Specialized <em>Healthcare</em><br>Recruiting &amp; Staffing</h2>
+      <span class="hero-kicker">Healthcare Recruiting &amp; Staffing · Atlanta, GA</span>
+      <h1>Specialized <em>Healthcare</em><br>Recruiting &amp; Staffing</h1>
       <p class="hero-lede">Clinical and non-clinical — from the front desk to the operating room to the C&#8209;suite.</p>
       <p class="hero-service-line">Temp &nbsp;·&nbsp; Temp-to-Perm &nbsp;·&nbsp; Direct Hire</p>
 
@@ -1544,7 +1513,6 @@ FAQ_ROLES = ("Which school roles do you staff?",
              "Twenty-three: speech-language pathologists and clinical fellows, occupational and physical therapists, educational audiologists, sign language interpreters, teachers of the deaf and hard of hearing, teachers of the visually impaired, orientation and mobility specialists, school nurses, school psychologists, educational diagnosticians, BCBAs, RBTs and ABA therapists, school counselors, school social workers, mental health therapists, special education teachers, paraprofessionals, reading specialists, adaptive PE teachers and classroom teachers.")
 SCHOOL_COMMON_FAQ = [FAQ_FAST, FAQ_CONTRACT, FAQ_BLIND]
 HUB_FAQ = [FAQ_ROLES, FAQ_IDEA, FAQ_FUNDS, FAQ_TELE, FAQ_QR, FAQ_FAST, FAQ_CONTRACT]
-HOME_FAQ = [FAQ_IDEA, FAQ_FUNDS, FAQ_CONTRACT, FAQ_TELE, FAQ_QR] + FAQ
 TELE_FAQ = [("Does a teletherapy provider need a license in our state?",
              "Yes. Providers must hold the license or credential your state requires for students located there. We check it before we propose anyone."),
             ("What do we need on our side?",
@@ -1889,28 +1857,6 @@ def role_columns():
         links = "".join(f'<li><a href="{r["file"]}">{r["nav"]}</a></li>' for r in SHOWN if r["group"] == key)
         cols.append(f'<div class="role-col"><h3><span class="feature-icon">[[ico:{icon}]]</span>{name}</h3><ul>{links}</ul></div>')
     return '<div class="role-cols">' + "".join(cols) + "</div>"
-
-
-def school_mega():
-    tabs = "".join(f'<button class="mega-tab-btn{" active" if i == 0 else ""}" onclick="switchMegaTab(\'{k}\',this)">{n}</button>'
-                   for i, (k, n, _) in enumerate(GROUPS))
-    panels = []
-    for i, (k, n, _) in enumerate(GROUPS):
-        links = "\n".join(f'              <a href="{r["file"]}">{r["nav"]}</a>' for r in SHOWN if r["group"] == k)
-        panels.append(f'''            <div class="mega-panel{" active" if i == 0 else ""}" id="mega-{k}">
-{links}
-              <a class="mega-all" href="school-staffing.html#{k}">All {n} →</a>
-            </div>''')
-    return f'''            <div class="mega-sidebar">
-              {tabs}
-              <a class="mega-tab-btn" href="hire-school-staff.html" style="color:var(--blue);">Hire School Staff →</a>
-            </div>
-''' + "\n".join(panels)
-
-
-NAV = (NAV.replace("{{SCHOOL_MEGA}}", school_mega())
-       .replace("{{STATE_NAV}}", "\n".join(f'            <a href="{st["file"]}">{st["name"]}</a>' for st in STATES)
-                + '\n            <a href="school-staffing.html#states">All States →</a>'))
 
 
 def law_band():
@@ -2297,99 +2243,19 @@ TELE_HUB = school_hero('<a href="school-staffing.html">School Roles</a><span>/</
         "Can't Find Someone Local?", "Tell us the role and the caseload — we'll send remote candidates licensed in your state.")
 
 
-def guide_band():
-    """The salary guide banner at the very top of the home page. It says who it's for,
-    because the rest of the page speaks to districts."""
-    return f'''
-<!-- ── Salary guide banner ────────────────────── -->
-<a class="guide-band" href="salary-guide.html">
+def school_band():
+    """The banner at the top of the home page: school staffing lives on its own site now."""
+    return '''
+<!-- ── School staffing banner ─────────────────── -->
+<a class="guide-band" href="{{NEW_SITE}}/">
   <div class="container guide-band-inner">
-    <img class="guide-band-cover" src="img/{GUIDE["cover"]}" alt="" width="46" height="60">
     <div class="guide-band-text">
-      <strong>For school therapists: the 2026 Salary Guide</strong>
-      <span>What schools pay SLPs, OTs, PTs and more, from BLS data. Median K-12 pay for an SLP: {money(PAY[0]["k12"])}.</span>
+      <strong>Hiring for a school or district?</strong>
+      <span>School staffing has its own home: SLPs, OTs, school psychologists, BCBAs, special education and more.</span>
     </div>
-    <span class="guide-band-go">Get the Free Guide &rarr;</span>
+    <span class="guide-band-go">Visit Hire School Staff &rarr;</span>
   </div>
 </a>
-'''
-
-
-def home_top():
-    return guide_band() + '''
-<!-- ── Hero: school staffing ──────────────────── -->
-<section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-inner">
-      <span class="hero-kicker">K&#8209;12 School Staffing · Contract · Teletherapy</span>
-      <h1>School Staffing for <em>Every IEP Service</em></h1>
-      <p class="hero-lede">Speech-language pathologists first — plus OT, PT, psychology, behavior, special education, hearing, vision and nursing: 23 school roles on contract, onsite or by teletherapy, for big metro districts and small rural ones.</p>
-      <p class="hero-service-line">Required by law &nbsp;·&nbsp; Publicly funded &nbsp;·&nbsp; Staffed by MedPoint</p>
-      <div class="hero-search-sub">
-        <a href="hire-school-staff.html" class="btn-hero-pill btn-hero-pill--filled">Hire School Staff →</a>
-        <a href="school-slp-staffing.html" class="btn-hero-pill">[[ico:speech]] School SLPs</a>
-        <a href="school-teletherapy-staffing.html" class="btn-hero-pill">[[ico:monitor]] Teletherapy</a>
-        <a href="school-staffing.html" class="btn-hero-pill">All 23 Roles</a>
-      </div>
-    </div>
-    <aside class="hero-card" aria-label="Scan to meet your best-matched candidate">
-      <div class="hero-card-head">
-        <div>
-          <span class="hero-card-kicker">Scan · Paste · Match</span>
-          <h2>Meet your best-matched candidate</h2>
-        </div>
-        <span class="live-pill">Live</span>
-      </div>
-      <div class="hero-qr"><img src="img/qr/school-all.svg" alt="QR code that opens the MedPoint Partners school match page" width="190" height="190"></div>
-      <p class="hero-card-fine">Paste your job description and see the blinded candidate we'd send — plus the 30-second video intro we invite every candidate to film.</p>
-      <a class="hero-card-go" href="school-match.html">Open the Match Page &rarr;</a>
-    </aside>
-  </div>
-</section>
-''' + edge_strip() + slp_ticker() + slp_band() + market_band() \
-        + school_ticker(SHOWN, "Every School Role: Candidate Spotlights", sid="all-spotlights") + '''
-<!-- ── Every role ─────────────────────────────── -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="centered">
-      <span class="section-kicker">23 School Roles, One Call</span>
-      <h2 class="section-title">Related Services, Special Education <em>&amp; Student Health</em></h2>
-      <div class="section-divider"></div>
-      <p class="section-sub">Every role a special education director answers for — staffed on contract, onsite or by teletherapy.</p>
-    </div>
-''' + role_columns() + '''
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:32px;">
-      <a href="school-staffing.html" class="btn btn-primary">See Every Role →</a>
-      <a href="school-teletherapy-staffing.html" class="btn btn-outline-dark">[[ico:monitor]] Teletherapy Roles</a>
-    </div>
-  </div>
-</section>
-''' + law_band() + delivery_band() + rural_metro_band() + f'''
-<!-- ── How it works ───────────────────────────── -->
-<section class="section section-alt">
-  <div class="container">
-    <span class="section-kicker">How It Works</span>
-    <h2 class="section-title">From Job Order to First Day</h2>
-    <div class="section-divider"></div>
-    {steps_row(SCHOOL_STEPS)}
-  </div>
-</section>
-''' + states_band() + reps_band() + '''
-<!-- ── Resources ──────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <span class="section-kicker">Resources for District Leaders</span>
-        <h2 class="section-title">Explainers &amp; Guides</h2>
-      </div>
-      <a href="school-resources.html" class="btn btn-outline-dark" style="flex-shrink:0;">All Resources →</a>
-    </div>
-    <div class="trio">
-''' + "\n".join(article_card(a) for a in ARTICLES) + '''
-    </div>
-  </div>
-</section>
 '''
 
 
@@ -2402,9 +2268,7 @@ def article_card(a):
       </a>'''
 
 
-HOME = home_top() + HEALTH_HOME.replace("{{HOME_FAQ}}", faq_html(HOME_FAQ)) + school_cta(
-    "Fill the Seat Before the Minutes Pile Up",
-    "Place a job order, or paste your job description and meet your best-matched candidate.")
+HOME = school_band() + HEALTH_HOME.replace("{{HOME_FAQ}}", faq_html()) + cta()
 
 
 # ── Hire School Staff: the district's two-step job order ──
@@ -3301,9 +3165,9 @@ SCHOOL_LED = {"index.html"} | {e[0] for e in SCHOOL_PAGES}
 MOVED = {e[0] for e in SCHOOL_PAGES} | {"school-flyer.html"}
 
 PAGES = [
-    ("index.html", "School Staffing for K-12 Districts | MedPoint Partners",
-     "Contract school staffing for K-12 districts: SLPs, OTs, PTs, school psychologists, BCBAs, SPED teachers and nurses, onsite or by teletherapy.",
-     HOME, faq_schema(HOME_FAQ), HOME_HEAD),
+    ("index.html", "Healthcare Recruiting &amp; Staffing in Atlanta | MedPoint Partners",
+     "Atlanta healthcare recruiting and staffing. Nurses, NPs, PAs, physicians, allied health, medical office, revenue cycle, and leadership. Temp, temp-to-perm, and direct hire.",
+     HOME, faq_schema(), HOME_HEAD),
     ("services.html", "Healthcare Recruiting &amp; Staffing Services | MedPoint Partners",
      "Direct hire, temp, temp-to-perm, retained search, and RPO for clinical and non-clinical healthcare roles.",
      SERVICES, None, ""),
@@ -3415,70 +3279,31 @@ def write_sitemap():
 
 
 def write_llms():
-    """llms.txt: what the firm does and every page worth reading, school staffing first."""
-    u = lambda f: f"{NEW_SITE if f in MOVED else SITE}/{f}"   # noqa: E731
-    groups = []
-    for key, name, _ in GROUPS:
-        lines = [f"- {plain(r['nav'])}: {plain(r['card'])} {u(r['file'])}"
-                 + (f" (remote: {u(r['tele_file'])})" if r.get("tele_file") else "")
-                 for r in SHOWN if r["group"] == key]
-        groups.append(f"### {plain(name)}\n" + "\n".join(lines))
+    """llms.txt: what the firm does and every page worth reading."""
+    u = lambda f: f"{SITE}/{f}"   # noqa: E731
     text = f"""# MedPoint Partners
 
-> K-12 school staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners staffs school districts and charter schools with the people IEP services depend on: speech-language pathologists, occupational and physical therapists, school psychologists, BCBAs and RBTs, counselors, social workers, special education teachers and paraprofessionals, interpreters, teachers of the deaf and visually impaired, and school nurses. Contract for the school year or semester comes first, onsite or by teletherapy; contract-to-hire and direct hire are available. MedPoint also recruits for hospitals and physician practices.
+> Healthcare recruiting and staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-perm or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
 
-School staffing now lives at Hire School Staff, {NEW_SITE}. The school links below go there.
+School staffing has its own site: Hire School Staff, {NEW_SITE}
 
-## Why school staffing
-- Required by law: the Individuals with Disabilities Education Act (IDEA) entitles every student with an IEP to the special education and related services written into it.
-- Publicly funded: federal IDEA Part B grants, state and local special education funds, and school-based Medicaid for eligible services.
-- Industry view: on October 29, 2026, one national school staffing firm's public job board listed {MARKET[0][0]} open jobs, {MARKET[1][0]} of them contract, with about 3,000 new postings a week (the counts may include some healthcare roles).
+## Roles
+Nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied health and therapy; medical assistants and front office; revenue cycle, coding and healthcare finance; healthcare leadership.
 
-## Speech-language pathologists first
-SLPs are the largest school role ({SLP_FLAG["note"][:-1]}). MedPoint staffs CCC-SLPs, clinical fellows (CF-SLP), SLP assistants, bilingual SLPs and teletherapy SLPs: {u(SLP["file"])} (teletherapy: {u(SLP["tele_file"])}).
-
-## Big metro and small rural districts
-Metro districts get volume, bilingual staff, backlog help and fast replacements. Small and rural districts get teletherapy when no one lives within driving distance, itinerant clinicians shared across campuses, low-incidence roles a few hours a week, and one point of contact for every role.
-
-## What makes MedPoint different
-- A live ticker of blinded school candidates (no name, employer or school) on every school page.
-- QR codes on every school page and printable flyer open a match page: a district pastes or picks its job description and sees its best-matched blinded candidate, plus the 30-second video intro every candidate is invited to film. {u("school-match.html")}
-- Local independent reps ("We put you in business for yourself"): {u("sell-for-us.html")}
-- Blinded shortlist in 48 to 72 hours; licenses and certifications checked before a candidate is sent; every résumé arrives with answers to the district's screening questions; MedPoint is employer of record for contract staff (weekly payroll, taxes, workers' comp, one invoice).
-
-## Contact
-- Place a school job order (two steps): {u("hire-school-staff.html")}
-- Phone: 404-250-0790 or 678-777-5627
-- Email: {EMAIL}
-- Location: Atlanta, GA. Contract and teletherapy school roles nationwide; healthcare roles across the Southeast, remote roles nationwide.
-
-## School roles (23)
-- All roles: {u("school-staffing.html")}
-- Teletherapy and remote roles: {u("school-teletherapy-staffing.html")}
-
-""" + "\n\n".join(groups) + """
-
-## School staffing by state
-""" + "\n".join(f"- {st['name']}: {u(st['file'])}" for st in STATES) + """
-
-## Resources for district leaders
-""" + "\n".join(f"- {plain(a['h1'])}: {u(a['file'])}" for a in ARTICLES) + f"""
-- All resources: {u("school-resources.html")}
-- School therapist salary guide 2026 (BLS pay for SLPs, OTs, PTs, school psychologists and more): {u("salary-guide.html")}
-
-## Healthcare recruiting and staffing
-MedPoint also helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-perm or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
-- Roles: nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied health and therapy; medical assistants and front office; revenue cycle, coding and healthcare finance; healthcare leadership.
+## Pages
+- Home: {SITE}/
 - Services: {u("services.html")}
 - Healthcare temps: {u("temp-staffing.html")}
 - Request healthcare talent: {u("request-talent.html")}
 - Partner Program (10% of direct hire fees, 25% of temp net spread, paid monthly): {u("partners.html")}
-- Job board: {JOB_BOARD}
-
-## Pages
-- Home: {SITE}/
 - About: {u("about.html")}
 - Contact: {u("contact.html")}
+- Job board: {JOB_BOARD}
+
+## Contact
+- Phone: 404-250-0790 or 678-777-5627
+- Email: {EMAIL}
+- Location: Atlanta, GA. Healthcare roles across the Southeast, remote roles nationwide.
 """
     (OUT / "llms.txt").write_text(text, encoding="utf-8")
     print("wrote llms.txt")
