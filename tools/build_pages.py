@@ -23,7 +23,7 @@ from school_states import STATES
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent
 SITE = "https://www.medpointpartners.com"
-NEW_SITE = "https://www.hireschoolstaff.com"   # where the school pages moved
+NEW_SITE = "https://www.iepstaff.com"   # where the school pages moved
 JOB_BOARD = "https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg"
 EMAIL = "gus@stafffinancial.com"
 UNS = "https://images.unsplash.com/"
