@@ -15,6 +15,7 @@ import sys
 from html import unescape
 from pathlib import Path
 
+from atlanta_areas import AREAS, SF_BASE
 from school_articles import ARTICLES
 from school_pay import GUIDE, PAY, money, school_share
 from school_roles import DISPLAY_ORDER, GROUPS, ROLES
@@ -22,7 +23,7 @@ from school_states import STATES
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent
 SITE = "https://www.medpointpartners.com"
-NEW_SITE = "https://www.hireschoolstaff.com"   # where the school pages moved
+NEW_SITE = "https://www.iepstaff.com"   # where the school pages moved
 JOB_BOARD = "https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg"
 EMAIL = "gus@stafffinancial.com"
 UNS = "https://images.unsplash.com/"
@@ -108,7 +109,7 @@ NAV = '''
       </ul>
       <div class="nav-ctas">
         <a href="{{JOB_BOARD}}" target="_blank" rel="noopener" class="btn btn-outline-dark">Job Board</a>
-        <a href="request-talent.html" class="btn btn-primary">Hire Top Talent</a>
+        <a href="request-talent.html" class="btn btn-primary">Get Started</a>
       </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -125,7 +126,7 @@ FOOTER = '''
         <a href="index.html" class="brand-chip" aria-label="MedPoint Partners — home">
           ''' + BRAND + '''
         </a>
-        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-perm and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
+        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-hire and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
@@ -139,12 +140,19 @@ FOOTER = '''
         </ul>
       </div>
       <div class="footer-col">
+        <h4>NorthPoint Search Group</h4>
+        <ul>
+          <li><a href="https://www.northpointsearchgroup.com/">Part of NorthPoint Search Group</a></li>
+          <li><a href="https://www.stafffinancial.com/">Staff Financial: Accounting &amp; Finance</a></li>
+          <li><a href="index.html#areas">Metro Atlanta Areas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
           <li><a href="tel:+14042500790">404-250-0790</a></li>
           <li><a href="tel:+16787775627">678-777-5627</a></li>
-          <li><a href="request-talent.html">Request Healthcare Talent</a></li>
+          <li><a href="request-talent.html">Get Started</a></li>
           <li><a href="contact.html">Send a Message</a></li>
           <li><span>Atlanta, GA · Serving the Southeast &amp; nationwide</span></li>
         </ul>
@@ -152,7 +160,7 @@ FOOTER = '''
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <span>&copy; 2026 MedPoint Partners. Powered by NorthPoint. All rights reserved.</span>
+      <span>&copy; 2026 MedPoint Partners. Powered by <a href="https://www.northpointsearchgroup.com/">NorthPoint</a>. Part of NorthPoint Search Group. All rights reserved.</span>
       <a href="contact.html">Privacy &amp; Terms</a>
     </div>
   </div>
@@ -164,18 +172,18 @@ FOOTER = '''
 '''
 
 ORG = {
-    "@type": "Organization",
+    "@type": "EmploymentAgency",
     "@id": SITE + "/#organization",
     "name": "MedPoint Partners",
     "alternateName": ["Medpoint Partners", "MedPoint"],
     "url": SITE,
     "logo": {"@type": "ImageObject", "url": SITE + "/img/medpoint-logo.png"},
-    "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
+    "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, and leadership — as temp, temp-to-hire, and direct hire, with payrolling as Employer of Record.",
     "address": {"@type": "PostalAddress", "addressLocality": "Atlanta", "addressRegion": "GA", "addressCountry": "US"},
     "telephone": ["+1-404-250-0790", "+1-678-777-5627"],
-    "email": EMAIL,
     "areaServed": ["Atlanta, GA", "Georgia", "Southeast United States", "United States"],
     "sameAs": [],
+    "parentOrganization": {"@type": "Organization", "@id": "https://www.northpointsearchgroup.com/#organization", "name": "NorthPoint Search Group", "url": "https://www.northpointsearchgroup.com/"},
 }
 
 
@@ -247,7 +255,7 @@ CTA = '''
 </div>
 '''
 
-CTA_ACTIONS = '''      <a href="request-talent.html" class="btn btn-white btn-lg">Request Talent Now</a>
+CTA_ACTIONS = '''      <a href="request-talent.html" class="btn btn-white btn-lg">Get Started</a>
       <a href="{{JOB_BOARD}}" target="_blank" rel="noopener" class="btn btn-outline-white btn-lg">Browse Open Jobs ↗</a>'''
 
 
@@ -258,7 +266,7 @@ def cta(h2="Ready to Find Your Next<br>Healthcare Hire?",
 
 SPECIALTIES = ["Registered Nurses (RN)", "LPNs &amp; CNAs", "Nurse Practitioners (NP)", "Physician Assistants (PA-C)",
                "Physicians (MD / DO)", "Medical Assistants", "Imaging &amp; Surgical Techs", "Therapy &amp; Rehab",
-               "Front Desk &amp; Patient Access", "Coding, Billing &amp; Revenue Cycle", "Healthcare Finance",
+               "Front Desk &amp; Patient Access", "Coding, Billing &amp; Revenue Cycle",
                "Practice Administrators &amp; Leadership"]
 
 
@@ -289,7 +297,7 @@ EOR = '''
         <p style="color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:28px;">MedPoint Partners — powered by NorthPoint — acts as the Employer of Record for every temp placement. One simple bill rate. Zero HR overhead on your end.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
           <a href="temp-staffing.html" class="btn btn-white btn-lg">Healthcare Temps</a>
-          <a href="request-talent.html" class="btn btn-outline-white btn-lg">Request Talent</a>
+          <a href="request-talent.html" class="btn btn-outline-white btn-lg">Get Started</a>
         </div>
       </div>
       <div class="eor-features">
@@ -317,7 +325,7 @@ EOR = '''
         <div class="eor-feature">
           <div class="eor-icon-wrap">[[ico:refresh]]</div>
           <div>
-            <h4>Easy Temp-to-Perm</h4>
+            <h4>Easy Temp-to-Hire</h4>
             <p>Love the temp? Move them to your payroll anytime with a simple conversion agreement.</p>
           </div>
         </div>
@@ -399,18 +407,18 @@ PROFILES = profiles_section('Healthcare Talent Available Now', "Healthcare Pros 
 
 AUDIENCE_STEPS = '''<li><strong>We build your list</strong> — the exact people you want to hire.</li>
         <li><strong>Our AI recruiting assistant writes the letter with you</strong> — then reaches out and invites them to apply for your job.</li>
-        <li><strong>Candidates apply and film a video introduction.</strong></li>
+        <li><strong>Candidates apply and are invited to record an optional video intro.</strong></li>
         <li><strong>Our AI matches and scores every candidate for you.</strong></li>
         <li><strong>You reach out directly</strong> — or we do it all for you.</li>'''
 
 # ───────────────────────────── Home ─────────────────────────────
 FAQ = [
     ("What healthcare roles does MedPoint Partners place?",
-     "Clinical and non-clinical roles at every level: registered nurses, LPNs, CNAs, and nurse leaders; nurse practitioners, physician assistants, CRNAs, and physicians; radiology, imaging, surgical, lab, and respiratory techs; physical, occupational, and speech therapists; medical assistants, front desk, scheduling, and patient access staff; medical coders, billers, and revenue cycle teams; and healthcare leaders, from practice administrators to CEOs, CNOs, and CFOs."),
+     "Clinical and non-clinical roles at every level: registered nurses, LPNs, CNAs, and nurse leaders; nurse practitioners, physician assistants, CRNAs, and physicians; radiology, imaging, surgical, lab, and respiratory techs; physical, occupational, and speech therapists; medical assistants, front desk, scheduling, and patient access staff; medical coders, billers, and revenue cycle teams; and healthcare leaders, from practice administrators to CEOs and CNOs. Accounting and finance roles, including CFOs and controllers, go to our sister firm Staff Financial (https://www.stafffinancial.com/)."),
     ("How quickly will I receive a shortlist of candidates?",
      "We deliver a blinded shortlist of pre-vetted candidates within 48 to 72 hours of receiving your talent request. Our active network and direct sourcing let us move faster than generalist staffing firms."),
     ("Do you offer temp healthcare staffing?",
-     "Yes. We place healthcare temps, temp-to-perm, and direct hire — from nursing and medical assistant coverage to front desk, coding, and billing temps and interim leaders. We act as the Employer of Record, so payroll, taxes, workers' comp, and W-2s are handled on our end."),
+     "Yes. We place healthcare temps, temp-to-hire, and direct hire — from nursing and medical assistant coverage to front desk, coding, and billing temps and interim leaders. We act as the Employer of Record, so payroll, taxes, workers' comp, and W-2s are handled on our end."),
     ("Do you check licenses and certifications?",
      "Yes. We confirm that a candidate's license or certification — RN, LPN, NP, PA-C, ARRT, CPC, and others — is active before we send them to you. Your screening questionnaire can ask about anything else you need."),
     ("What does \"blinded shortlist\" mean?",
@@ -455,7 +463,7 @@ HEALTH_HOME = '''
       <span class="hero-kicker">Healthcare Recruiting &amp; Staffing · Atlanta, GA</span>
       <h1>Specialized <em>Healthcare</em><br>Recruiting &amp; Staffing</h1>
       <p class="hero-lede">Clinical and non-clinical — from the front desk to the operating room to the C&#8209;suite.</p>
-      <p class="hero-service-line">Temp &nbsp;·&nbsp; Temp-to-Perm &nbsp;·&nbsp; Direct Hire</p>
+      <p class="hero-service-line">Temp &nbsp;·&nbsp; Temp-to-Hire &nbsp;·&nbsp; Direct Hire</p>
 
       <form class="hero-search-form" action="https://host.pcrecruiter.net/pcrbin/jobboard.aspx" method="get" target="_blank">
         <input type="hidden" name="uid" value="Staff Financial.npsg">
@@ -476,7 +484,6 @@ HEALTH_HOME = '''
             <option value="Medical Coder">Medical Coder / Biller</option>
             <option value="Revenue Cycle">Revenue Cycle</option>
             <option value="Practice Administrator">Practice Administrator</option>
-            <option value="Healthcare Finance">Healthcare Finance</option>
           </select>
           <button type="submit">[[ico:search]] Search Jobs</button>
         </div>
@@ -578,7 +585,7 @@ HEALTH_HOME = '''
         <div class="svc-card-overlay"></div>
         <div class="svc-card-body">
           <h3>Executive Search</h3>
-          <p>CEOs, CNOs, CFOs, administrators, and medical directors who lead through change.</p>
+          <p>CEOs, CNOs, administrators, and medical directors who lead through change.</p>
           <span class="svc-card-link">Learn More →</span>
         </div>
       </a>
@@ -655,7 +662,7 @@ HEALTH_HOME = '''
 <section class="section section-dark">
   <div class="container split">
     <div>
-      <span class="section-kicker">Temp &amp; Temp-to-Perm</span>
+      <span class="section-kicker">Temp &amp; Temp-to-Hire</span>
       <h2 class="section-title">Healthcare Temps<br>When You Need Them — <em>Fast</em></h2>
       <p>A nurse goes on leave. Flu season fills the waiting room. A new clinic opens before the team is hired. We send pre-screened temps — and as Employer of Record, we handle payroll, taxes, and workers' comp.</p>
       <a href="temp-staffing.html" class="btn btn-white btn-lg">Healthcare Temps →</a>
@@ -727,7 +734,7 @@ HEALTH_HOME = '''
         <span class="section-kicker">Specialties</span>
         <h2 class="section-title">From the Front Desk<br><span class="accent">to the Operating Room</span></h2>
         <div class="section-divider"></div>
-        <p class="section-sub">We place clinical and non-clinical healthcare professionals at every level — from medical assistants and CNAs to physicians, nurse leaders, and hospital CFOs.</p>
+        <p class="section-sub">We place clinical and non-clinical healthcare professionals at every level — from medical assistants and CNAs to physicians, nurse leaders, and hospital executives.</p>
         <div style="margin-top:28px;">
           <a href="services.html#titles" class="btn btn-primary">All Specialties →</a>
         </div>
@@ -812,7 +819,7 @@ TITLE_GROUPS = [
     ("Medical Office &amp; Patient Access", ["Medical Assistant (MA / CMA)", "Front Desk &amp; Receptionist",
                                              "Scheduler &amp; Patient Access", "Referral Coordinator",
                                              "Precertification &amp; Prior Auth", "Credentialing &amp; Payer Enrollment"]),
-    ("Revenue Cycle, Coding &amp; Finance", ["CFO &amp; Controller", "Director of Revenue Cycle",
+    ("Revenue Cycle &amp; Coding", ["Revenue Cycle Manager", "Director of Revenue Cycle",
                                              "Medical Coder (CPC / CCS)", "CDI Specialist",
                                              "Billing, A/R &amp; Collections", "Reimbursement &amp; Cost Report Analyst"]),
     ("Healthcare Leadership", ["CEO, COO &amp; Hospital Administrator", "Practice Administrator",
@@ -850,32 +857,32 @@ SERVICES = page_hero("Services", "Our Recruiting Services",
      "Reference and background coordination", "Offer negotiation and onboarding support", "Replacement guarantee included"],
     "Start a Direct Hire Search", "stethoscope", "Best For",
     ["Registered nurses and nurse leaders", "Nurse practitioners, PAs, and physicians", "Allied health and imaging techs",
-     "Medical assistants and front office staff", "Practice administrators, revenue cycle, and finance"],
+     "Medical assistants and front office staff", "Practice administrators and revenue cycle leaders"],
     "Fee Structure", "Contingency — fee applies only upon successful placement") + svc_block(
     "temp", "Temp", "Healthcare Temp Staffing",
     "Need coverage for a leave, a vacancy, flu season, or a new clinic opening? Our healthcare temps step in quickly — screened and ready to work from day one.",
     ["Rapid deployment — often within 48–72 hours", "Assignments from a few days to 12+ months",
      "We handle payroll, taxes, and workers' comp", "Clinical, front office, and coding and billing temps",
-     "Interim practice administrators, nurse managers, and finance leaders"],
+     "Interim practice administrators, nurse managers, and revenue cycle leaders"],
     "Request a Temp", "clock", "Best For",
     ["Leave and vacancy coverage", "Flu season and volume surges", "New clinic and unit openings",
      "Coding and billing backlogs", "EHR conversions and go-lives"],
     "Fee Structure", "Bill rate per hour — no placement fee") + svc_block(
     "retained", "Retained Search", "Exclusive. Dedicated. Guaranteed.",
-    "For your most critical hires — CEOs, CNOs, CFOs, administrators, medical directors, and confidential replacements — our retained model gives you an exclusive partnership, a dedicated search team, and a structured process built around your organization.",
+    "For your most critical hires — CEOs, CNOs, administrators, medical directors, and confidential replacements — our retained model gives you an exclusive partnership, a dedicated search team, and a structured process built around your organization.",
     ["Exclusive engagement — we work for you alone on this search", "Dedicated search team with a structured weekly cadence",
      "Deep market mapping — active and passive candidates", "Confidential searches handled with full discretion",
      "Full replacement guarantee"],
     "Start a Retained Search", "award", "Best For",
-    ["CEO, COO, CNO, and CFO searches", "Medical directors and physician leaders", "Confidential or backfill searches",
+    ["CEO, COO, and CNO searches", "Medical directors and physician leaders", "Confidential or backfill searches",
      "Succession planning", "PE-backed platforms and multi-site groups"],
     "Fee Structure", "Retainer paid in installments — a portion upfront, balance upon placement. Full replacement guarantee included.",
     dark=True) + svc_block(
-    "temp-to-perm", "Temp-to-Perm", "Temp-to-Perm",
+    "temp-to-perm", "Temp-to-Hire", "Temp-to-Hire",   # id kept so old #temp-to-perm links still land
     "Start someone as a temp and move them to your payroll when you're sure of the fit. It lowers the risk for both sides — and works well while headcount approval is in progress.",
     ["Typical temp period of 90–180 days", "They work on your team from day one", "Conversion fee agreed upfront",
      "Ideal when headcount approval is in progress", "They learn your clinic, systems, and patients before converting"],
-    "Explore Temp-to-Perm", "refresh", "Best For",
+    "Explore Temp-to-Hire", "refresh", "Best For",
     ["Roles where team fit is critical", "New positions with evolving scope", "Front office and patient access teams",
      "Clinics under a hiring freeze", "High-volume medical assistant and nursing teams"],
     "Fee Structure", "Bill rate as a temp; reduced conversion fee when you hire them") + '''
@@ -905,8 +912,8 @@ SERVICES = page_hero("Services", "Our Recruiting Services",
         <div class="tool-card">
           <div class="tool-ico">[[ico:video]]</div>
           <div>
-            <h4>Optional Video Introductions</h4>
-            <p>We invite every candidate to film a short video introduction. You see how they communicate before the first call — not just a PDF.</p>
+            <h4>Optional Video Intros</h4>
+            <p>We invite every candidate to record an optional video intro. You see how they communicate before the first call — not just a PDF.</p>
             <div style="margin-top:14px;"><div class="mini-stat-num">1,000+</div><div class="mini-stat-label">Candidate Video Intros Filmed</div></div>
           </div>
         </div>
@@ -985,7 +992,7 @@ SERVICES = page_hero("Services", "Our Recruiting Services",
       </div>
       <div class="feature">
         <div class="feature-icon">[[ico:video]]</div>
-        <div><h4>Stand Out With a Video Intro</h4><p>Film a short introduction so hiring managers meet you before the first call.</p></div>
+        <div><h4>Stand Out With a Video Intro</h4><p>Record an optional video intro so hiring managers meet you before the first call.</p></div>
       </div>
       <div class="feature">
         <div class="feature-icon">[[ico:target]]</div>
@@ -1008,7 +1015,7 @@ def diff(icon, h4, p):
 
 
 ABOUT = page_hero("About Us", "About MedPoint Partners",
-                  "Healthcare recruiting and staffing — clinical and non-clinical — powered by NorthPoint and headquartered in Atlanta.",
+                  "Healthcare recruiting and staffing — clinical and non-clinical — part of NorthPoint Search Group and headquartered in Atlanta.",
                   "photo-1587351021759-3e566b6af7cc") + '''
 <!-- ── Our Story ──────────────────────────────── -->
 <section class="section">
@@ -1019,7 +1026,7 @@ ABOUT = page_hero("About Us", "About MedPoint Partners",
         <h2 class="section-title">Everyone Wins When Clinicians Can Focus on Patients</h2>
         <div class="section-divider"></div>
         <p style="color:var(--text-muted);line-height:1.85;margin-bottom:18px;">We help hospitals, physician practices, and healthcare organizations find and hire the people they need — so they can focus on their patients, and that makes everyone win.</p>
-        <p style="color:var(--text-muted);line-height:1.85;margin-bottom:18px;">We recruit for every seat on a healthcare team: nurses and nurse leaders, physicians and advanced practice providers, allied health and therapy, medical assistants and the front office, coding, billing and revenue cycle, finance, and leadership. When you call us, you're speaking with someone who knows the difference between an ortho PA who first-assists and one who only works in clinic — and which candidates belong in each seat.</p>
+        <p style="color:var(--text-muted);line-height:1.85;margin-bottom:18px;">We recruit for every seat on a healthcare team: nurses and nurse leaders, physicians and advanced practice providers, allied health and therapy, medical assistants and the front office, coding, billing and revenue cycle, and leadership. When you call us, you're speaking with someone who knows the difference between an ortho PA who first-assists and one who only works in clinic — and which candidates belong in each seat.</p>
         <p style="color:var(--text-muted);line-height:1.85;margin-bottom:32px;">We cast a wide net with targeted advertising and direct sourcing — then narrow it to the few people who fit your role, your schedule, and your team.</p>
         <div class="mini-stats">
           <div><div class="mini-stat-num">105+</div><div class="mini-stat-label">Years Combined Experience</div></div>
@@ -1049,7 +1056,7 @@ ABOUT = page_hero("About Us", "About MedPoint Partners",
     diff("target", "Wide Net, Precise Shortlist", "Targeted advertising and direct sourcing reach people who aren't on job boards — then we narrow it to the handful of candidates who actually fit."),
     diff("zap", "Fast Shortlists", "We don't let searches sit. Expect a blinded shortlist of pre-screened candidates within 48–72 hours of your request."),
     diff("clipboard", "Custom Screening Questionnaires", "For every search we build a questionnaire with your input. Every résumé arrives with the candidate's answers — specialty, schedule, license, EHR — so your questions are answered up front."),
-    diff("video", "Video Introductions", "Candidates can film a short video introduction, so you see how they communicate before the first call."),
+    diff("video", "Optional Video Intros", "Candidates are invited to record an optional video intro, so you see how they communicate before the first call."),
     diff("shield", "Guaranteed &amp; Fully Back-Officed", "Every direct hire is backed by our replacement guarantee, and every temp runs through our Employer of Record back office."),
 ]) + '''
     </div>
@@ -1119,7 +1126,7 @@ TEMP = page_hero("Temp Staffing", "Healthcare <em>Temp</em> Staffing",
     feat("activity", "Imaging &amp; Surgical Techs", "Radiology, CT, MRI, ultrasound, and surgical techs for vacancies and new service lines."),
     feat("phone", "Front Desk &amp; Patient Access", "Receptionists, schedulers, and referral and prior auth staff who keep phones answered and patients moving."),
     feat("file", "Coding &amp; Billing Backlogs", "Certified coders, billers, and A/R follow-up to clear backlogs and get claims out the door."),
-    feat("briefcase", "Interim Leaders", "Interim practice administrators, nurse managers, revenue cycle directors, and finance leaders during a search or a turnaround."),
+    feat("briefcase", "Interim Leaders", "Interim practice administrators, nurse managers, and revenue cycle directors during a search or a turnaround."),
 ]) + '''
     </div>
   </div>
@@ -1246,7 +1253,7 @@ REQUEST = '''
             <div class="form-group"><label for="r-type">Hire Type *</label>
               <select id="r-type" name="hire_type" class="form-control" required>
                 <option value="" disabled selected>Select</option>
-                <option>Direct Hire</option><option>Temp</option><option>Temp-to-Perm</option><option>Retained Search</option><option>Not sure yet</option>
+                <option>Direct Hire</option><option>Temp</option><option>Temp-to-Hire</option><option>Retained Search</option><option>Not sure yet</option>
               </select>
             </div>
           </div>
@@ -1317,7 +1324,7 @@ CONTACT = page_hero("Contact", "Get in Touch",
           </div>
           <div class="contact-item">
             <div class="contact-icon">[[ico:mail]]</div>
-            <div><div class="contact-label">Email</div><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+            <div><div class="contact-label">Get Started</div><a href="request-talent.html">Tell us about the role</a></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">[[ico:pin]]</div>
@@ -1389,7 +1396,7 @@ PARTNERS = page_hero("Partner Program", "Join Our Partner Program",
     <div class="trio">
 ''' + "\n".join([
     feat("handshake", "You get the order", 'Hear "we need to hire" from someone in your network — and make the introduction.'),
-    feat("search", "We fill it", "Our recruiters run the entire search — sourcing, screening, and placing. Temp, temp-to-perm, or direct hire."),
+    feat("search", "We fill it", "Our recruiters run the entire search — sourcing, screening, and placing. Temp, temp-to-hire, or direct hire."),
     feat("receipt", "You get paid", "A referral fee on direct hire placements, and a recurring share of every hour your client's temps work — for the life of the assignment."),
 ]) + '''
     </div>
@@ -1406,7 +1413,7 @@ PARTNERS = page_hero("Partner Program", "Join Our Partner Program",
     <div class="earn-grid">
 ''' + "\n".join([
     earn("10%", "Direct hire placements", "Your client hires direct through us — you earn 10% of the placement fee we collect. Paid when we collect from the client."),
-    earn("25%", "Temp net spread", "Your client runs temps or temp-to-perm workers — you earn 25% of the net spread on every hour they bill."),
+    earn("25%", "Temp net spread", "Your client runs temps or temp-to-hire workers — you earn 25% of the net spread on every hour they bill."),
     earn("Recurring", "While they work", "Temp commissions aren't one-time. They keep paying as long as your client's temps keep billing. Build a book."),
     earn("15th", "Paid every month", "Commissions are calculated on money actually received and paid on the 15th of the following month. Every dollar tracked for you."),
 ]) + '''
@@ -1428,7 +1435,7 @@ PARTNERS = page_hero("Partner Program", "Join Our Partner Program",
       <ol class="num-steps">
         <li><strong>Apply below</strong> — we review every partner personally and set you up.</li>
         <li><strong>Hear "we need two medical assistants"</strong> (or a nurse manager, a PA, a whole front office) — send it in.</li>
-        <li><strong>Our recruiters fill the order</strong> — temp, temp-to-perm, or direct hire.</li>
+        <li><strong>Our recruiters fill the order</strong> — temp, temp-to-hire, or direct hire.</li>
         <li><strong>You're paid on the 15th of the following month</strong> — 10% of the fee on direct hire, 25% of net spread on temps, recurring while the worker bills.</li>
       </ol>
     </div>
@@ -2255,7 +2262,123 @@ def article_card(a):
       </a>'''
 
 
-HOME = school_band() + HEALTH_HOME.replace("{{HOME_FAQ}}", faq_html()) + cta()
+
+# ───────────────────── Metro Atlanta area pages (ATL_AREAS_v1) ─────────────────────
+AREA_PHOTOS = ["photo-1576091160399-112ba8d25d1d", "photo-1631217868264-e5b90bb7e133", "photo-1538108149393-fbbd81895907",
+               "photo-1587351021759-3e566b6af7cc"]
+AREA_BY_SLUG = {a["slug"]: a for a in AREAS}
+
+
+def area_file(a):
+    return f"healthcare-staffing-{a['slug']}-ga.html"
+
+
+def area_short(a):
+    return a.get("short", a["city"])
+
+
+def area_body(a, i):
+    short = area_short(a)
+    roles = "\n".join(f'''      <div class="feature">
+        <div class="feature-icon">[[ico:stethoscope]]</div>
+        <div><h4>{t}</h4><p>{d}</p></div>
+      </div>''' for t, d in a["roles"])
+    notes = "\n".join(f"          <li>{n}</li>" for n in a["notes"])
+    faq = "\n".join(f'''      <details>
+        <summary>{q}</summary>
+        <div class="faq-a">{ans}</div>
+      </details>''' for q, ans in a["faq"])
+    near = " ".join(f'<a class="role-chip" href="{area_file(AREA_BY_SLUG[n])}">{area_short(AREA_BY_SLUG[n])}</a>' for n in a["nearby"])
+    return page_hero(f'<a href="index.html#areas">Metro Atlanta</a><span>/</span>{a["city"]}',
+                     f'Healthcare Staffing in <em>{a["city"]}, GA</em>', a["hero"], AREA_PHOTOS[i % len(AREA_PHOTOS)]) + f'''
+<section class="section">
+  <div class="container two-col" style="align-items:start;">
+    <div class="prose">
+      <span class="section-kicker">{a["county"]}</span>
+      <h2 class="section-title">Healthcare Hiring in <em>{short}</em></h2>
+      <div class="section-divider"></div>
+      <p class="prose-answer"><strong>{a["lede"]}</strong></p>
+      <p>{a["market"]}</p>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><span class="panel-label">Screening in {short}</span></div>
+      <ul class="checklist">
+{notes}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <span class="section-kicker">Roles We Fill</span>
+    <h2 class="section-title">Who We Place in <em>{short}</em></h2>
+    <div class="feature-list">
+{roles}
+    </div>
+    <p class="section-sub" style="margin-top:24px;">Temp, temp-to-hire, Direct Hire or retained search. <a href="services.html">How each works →</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="centered"><span class="section-kicker">Questions</span><h2 class="section-title">Healthcare Staffing in {short}</h2></div>
+    <div class="faq">
+{faq}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" style="padding:52px 0;">
+  <div class="container">
+    <span class="section-kicker">Nearby</span>
+    <p style="margin:10px 0 18px;">{near} <a class="role-chip" href="index.html#areas">All areas</a></p>
+    <p class="text-muted">Accounting or finance hire? <a href="{SF_BASE}/{a["slug"]}-ga.html">Staff Financial in {short}</a>. Parent company: <a href="https://www.northpointsearchgroup.com/">NorthPoint Search Group</a>.</p>
+  </div>
+</section>
+''' + cta(f"Healthcare Staffing<br>in {short}", f"Tell us about your {short} opening.")
+
+
+def area_schema(a):
+    url = f"{SITE}/{area_file(a)}"
+    strip = lambda t: t.replace("&amp;", "&")   # noqa: E731
+    return [
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": "Metro Atlanta", "item": SITE + "/#areas"},
+            {"@type": "ListItem", "position": 3, "name": a["city"], "item": url}]},
+        {"@type": "Service", "name": f"Healthcare staffing in {a['city']}, GA", "url": url,
+         "serviceType": ["Healthcare staffing", "Medical staffing", "Temp healthcare staffing", "Direct Hire healthcare recruiting"],
+         "provider": {"@id": SITE + "/#organization"}, "description": a["desc"],
+         "hasOfferCatalog": {"@type": "OfferCatalog", "name": f"Healthcare roles in {a['city']}",
+                             "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": strip(t)}} for t, _ in a["roles"]]},
+         "areaServed": {"@type": "City", "name": a["city"].replace(" Atlanta", ""),
+                        "containedInPlace": {"@type": "AdministrativeArea", "name": a["county"].split(" (")[0] + ", Georgia"}}},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(ans)}} for q, ans in a["faq"]]},
+    ]
+
+
+def areas_band():
+    chips = " ".join(f'<a class="role-chip" href="{area_file(a)}">{area_short(a)}</a>' for a in AREAS)
+    return f'''
+<!-- ── Metro Atlanta areas (generated from tools/atlanta_areas.py) ── -->
+<section class="section" id="areas" style="padding:56px 0;">
+  <div class="container">
+    <div class="centered">
+      <span class="section-kicker">Metro Atlanta</span>
+      <h2 class="section-title">Healthcare Staffing <em>by Area</em></h2>
+    </div>
+    <p style="text-align:center;margin-top:18px;">{chips}</p>
+  </div>
+</section>
+'''
+
+
+AREA_PAGES = [(area_file(a), f"Healthcare Staffing in {a['city']}, GA | MedPoint Partners", a["desc"], area_body(a, i), area_schema(a), "")
+              for i, a in enumerate(AREAS)]
+
+HOME = school_band() + HEALTH_HOME.replace("{{HOME_FAQ}}", faq_html()) + areas_band() + cta()
 
 
 # ── Hire School Staff: the district's two-step job order ──
@@ -3130,18 +3253,18 @@ MOVED = {e[0] for e in SCHOOL_PAGES} | {"school-flyer.html"}
 
 PAGES = [
     ("index.html", "Healthcare Recruiting &amp; Staffing in Atlanta | MedPoint Partners",
-     "Atlanta healthcare recruiting and staffing. Nurses, NPs, PAs, physicians, allied health, medical office, revenue cycle, and leadership. Temp, temp-to-perm, and direct hire.",
+     "Atlanta healthcare recruiting and staffing: nurses, NPs, PAs, physicians, allied health, medical office and revenue cycle. Temp, temp-to-hire and Direct Hire.",
      HOME, faq_schema(), HOME_HEAD),
     ("services.html", "Healthcare Recruiting &amp; Staffing Services | MedPoint Partners",
-     "Direct hire, temp, temp-to-perm, retained search, and RPO for clinical and non-clinical healthcare roles.",
+     "Direct hire, temp, temp-to-hire, retained search, and RPO for clinical and non-clinical healthcare roles.",
      SERVICES, None, ""),
     ("about.html", "About | Healthcare Recruiters in Atlanta | MedPoint Partners",
-     "MedPoint Partners helps hospitals, physician practices, and healthcare organizations hire clinical and non-clinical talent, so they can focus on their patients. Powered by NorthPoint, based in Atlanta.",
+     "MedPoint Partners helps hospitals, physician practices, and healthcare organizations hire clinical and non-clinical talent, so they can focus on their patients. Part of NorthPoint Search Group, based in Atlanta.",
      ABOUT, None, ""),
-    ("temp-staffing.html", "Healthcare Temp &amp; Temp-to-Perm Staffing | MedPoint Partners",
+    ("temp-staffing.html", "Healthcare Temp &amp; Temp-to-Hire Staffing | MedPoint Partners",
      "Healthcare temps: nurses, medical assistants, techs, front office, coding and billing, and interim leaders, with MedPoint as Employer of Record.",
      TEMP, None, ""),
-    ("request-talent.html", "Request Talent | Healthcare Recruiting | MedPoint Partners",
+    ("request-talent.html", "Get Started | Healthcare Staffing Request | MedPoint Partners",
      "Tell us about your open healthcare role and get a shortlist of qualified candidates in 48–72 hours.",
      REQUEST, None, ""),
     ("contact.html", "Contact | MedPoint Partners | Healthcare Recruiting in Atlanta",
@@ -3150,7 +3273,7 @@ PAGES = [
     ("partners.html", "Partner Program | Refer &amp; Earn | MedPoint Partners",
      "Physicians and healthcare leaders: refer a hiring need, we fill it, and you earn 10% on direct hire placements and 25% of temp net spread.",
      PARTNERS, None, ""),
-] + SCHOOL_PAGES
+] + AREA_PAGES + SCHOOL_PAGES
 
 # Old ClickFunnels addresses -> the new page that covers the same thing. Each gets a tiny page
 # that forwards at once (Render's own redirect rules never took effect for these).
@@ -3216,7 +3339,7 @@ def write_qr_codes():
     print("wrote", len(ROLES) + 1, "QR codes")
 
 
-BUILD_DATE = "2026-10-31"   # lastmod for sitemap.xml; bump it when pages change
+BUILD_DATE = "2026-11-17"   # lastmod for sitemap.xml; bump it when pages change
 
 
 def page_priority(file):
@@ -3226,7 +3349,7 @@ def page_priority(file):
         return "0.9"
     if file in ("school-teletherapy-staffing.html", "services.html") or file in {r["file"] for r in ROLES}:
         return "0.8"
-    if file in {r.get("tele_file") for r in ROLES} or file in {st["file"] for st in STATES}:
+    if file in {r.get("tele_file") for r in ROLES} or file in {st["file"] for st in STATES} or file in {f for f, *_ in AREA_PAGES}:
         return "0.7"
     return "0.6"
 
@@ -3247,26 +3370,32 @@ def write_llms():
     u = lambda f: f"{SITE}/{f}"   # noqa: E731
     text = f"""# MedPoint Partners
 
-> Healthcare recruiting and staffing firm in Atlanta, GA, powered by NorthPoint. MedPoint Partners helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-perm or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
+> Healthcare recruiting and staffing firm in Atlanta, GA, part of NorthPoint Search Group (https://www.northpointsearchgroup.com/). MedPoint Partners helps hospitals, physician practices and healthcare organizations hire clinical and non-clinical people as temp, temp-to-hire or direct hire, plus retained search and RPO, and payrolls temps as Employer of Record.
 
 School staffing has its own site: Hire School Staff, {NEW_SITE}
 
 ## Roles
-Nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied health and therapy; medical assistants and front office; revenue cycle, coding and healthcare finance; healthcare leadership.
+Nursing (RN, LPN, CNA, nurse leaders); physicians, NPs, PAs and CRNAs; allied health and therapy; medical assistants and front office; revenue cycle and coding; healthcare leadership.
+
+Accounting and finance roles (CFOs, controllers, accountants), in healthcare or elsewhere, go to Staff Financial (https://www.stafffinancial.com/), the NorthPoint brand for accounting and finance.
 
 ## Pages
 - Home: {SITE}/
 - Services: {u("services.html")}
 - Healthcare temps: {u("temp-staffing.html")}
-- Request healthcare talent: {u("request-talent.html")}
+- Get Started (request healthcare talent): {u("request-talent.html")}
 - Partner Program (10% of direct hire fees, 25% of temp net spread, paid monthly): {u("partners.html")}
 - About: {u("about.html")}
 - Contact: {u("contact.html")}
 - Job board: {JOB_BOARD}
 
+## Healthcare staffing in metro Atlanta
+""" + "\n".join(f"- {a['city']}, GA: {u(area_file(a))}" for a in AREAS) + f"""
+
 ## Contact
 - Phone: 404-250-0790 or 678-777-5627
-- Email: {EMAIL}
+- Get Started form: {u("request-talent.html")}
+- Parent company: NorthPoint Search Group (https://www.northpointsearchgroup.com/), the umbrella over its staffing brands.
 - Location: Atlanta, GA. Healthcare roles across the Southeast, remote roles nationwide.
 """
     (OUT / "llms.txt").write_text(text, encoding="utf-8")

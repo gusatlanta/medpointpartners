@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="apple-touch-icon" href="img/favicon-180.png">
-  <title>Request Talent | Healthcare Recruiting | MedPoint Partners</title>
+  <title>Get Started | Healthcare Staffing Request | MedPoint Partners</title>
   <meta name="description" content="Tell us about your open healthcare role and get a shortlist of qualified candidates in 48–72 hours.">
   <link rel="canonical" href="https://www.medpointpartners.com/request-talent.html">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="MedPoint Partners">
-  <meta property="og:title" content="Request Talent | Healthcare Recruiting | MedPoint Partners">
+  <meta property="og:title" content="Get Started | Healthcare Staffing Request | MedPoint Partners">
   <meta property="og:description" content="Tell us about your open healthcare role and get a shortlist of qualified candidates in 48–72 hours.">
   <meta property="og:url" content="https://www.medpointpartners.com/request-talent.html">
   <meta property="og:image" content="https://www.medpointpartners.com/img/og-image.png">
@@ -19,7 +19,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Request Talent | Healthcare Recruiting | MedPoint Partners">
+  <meta name="twitter:title" content="Get Started | Healthcare Staffing Request | MedPoint Partners">
   <meta name="twitter:description" content="Tell us about your open healthcare role and get a shortlist of qualified candidates in 48–72 hours.">
   <meta name="twitter:image" content="https://www.medpointpartners.com/img/og-image.png">
   <meta name="theme-color" content="#0b1f3d">
@@ -28,7 +28,7 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "EmploymentAgency",
       "@id": "https://www.medpointpartners.com/#organization",
       "name": "MedPoint Partners",
       "alternateName": [
@@ -40,7 +40,7 @@
         "@type": "ImageObject",
         "url": "https://www.medpointpartners.com/img/medpoint-logo.png"
       },
-      "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
+      "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, and leadership — as temp, temp-to-hire, and direct hire, with payrolling as Employer of Record.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Atlanta",
@@ -51,14 +51,19 @@
         "+1-404-250-0790",
         "+1-678-777-5627"
       ],
-      "email": "gus@stafffinancial.com",
       "areaServed": [
         "Atlanta, GA",
         "Georgia",
         "Southeast United States",
         "United States"
       ],
-      "sameAs": []
+      "sameAs": [],
+      "parentOrganization": {
+        "@type": "Organization",
+        "@id": "https://www.northpointsearchgroup.com/#organization",
+        "name": "NorthPoint Search Group",
+        "url": "https://www.northpointsearchgroup.com/"
+      }
     }
   ]
 }
@@ -80,11 +85,11 @@
         <li><a href="temp-staffing.html">Temp Staffing</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="partners.html">Partner Program</a></li>
-        <li><a href="https://www.hireschoolstaff.com/">School Staffing ↗</a></li>
+        <li><a href="https://www.iepstaff.com/">School Staffing ↗</a></li>
       </ul>
       <div class="nav-ctas">
         <a href="https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg" target="_blank" rel="noopener" class="btn btn-outline-dark">Job Board</a>
-        <a href="request-talent.html" class="btn btn-primary">Hire Top Talent</a>
+        <a href="request-talent.html" class="btn btn-primary">Get Started</a>
       </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -159,7 +164,7 @@
             <div class="form-group"><label for="r-type">Hire Type *</label>
               <select id="r-type" name="hire_type" class="form-control" required>
                 <option value="" disabled selected>Select</option>
-                <option>Direct Hire</option><option>Temp</option><option>Temp-to-Perm</option><option>Retained Search</option><option>Not sure yet</option>
+                <option>Direct Hire</option><option>Temp</option><option>Temp-to-Hire</option><option>Retained Search</option><option>Not sure yet</option>
               </select>
             </div>
           </div>
@@ -219,7 +224,7 @@ var n=document.getElementById('r-notes');if(n&&!n.value)n.value="I'd like to tal
         <a href="index.html" class="brand-chip" aria-label="MedPoint Partners — home">
           <img src="img/medpoint-logo.png" alt="MedPoint Partners — powered by NorthPoint" class="brand-logo" width="170" height="58">
         </a>
-        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-perm and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
+        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-hire and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
@@ -228,17 +233,24 @@ var n=document.getElementById('r-notes');if(n&&!n.value)n.value="I'd like to tal
           <li><a href="temp-staffing.html">Temp Staffing</a></li>
           <li><a href="partners.html">Partner Program</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="https://www.hireschoolstaff.com/">School Staffing ↗</a></li>
+          <li><a href="https://www.iepstaff.com/">School Staffing ↗</a></li>
           <li><a href="https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg" target="_blank" rel="noopener">Job Board ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>NorthPoint Search Group</h4>
+        <ul>
+          <li><a href="https://www.northpointsearchgroup.com/">Part of NorthPoint Search Group</a></li>
+          <li><a href="https://www.stafffinancial.com/">Staff Financial: Accounting &amp; Finance</a></li>
+          <li><a href="index.html#areas">Metro Atlanta Areas</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:gus@stafffinancial.com">gus@stafffinancial.com</a></li>
           <li><a href="tel:+14042500790">404-250-0790</a></li>
           <li><a href="tel:+16787775627">678-777-5627</a></li>
-          <li><a href="request-talent.html">Request Healthcare Talent</a></li>
+          <li><a href="request-talent.html">Get Started</a></li>
           <li><a href="contact.html">Send a Message</a></li>
           <li><span>Atlanta, GA · Serving the Southeast &amp; nationwide</span></li>
         </ul>
@@ -246,7 +258,7 @@ var n=document.getElementById('r-notes');if(n&&!n.value)n.value="I'd like to tal
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <span>&copy; 2026 MedPoint Partners. Powered by NorthPoint. All rights reserved.</span>
+      <span>&copy; 2026 MedPoint Partners. Powered by <a href="https://www.northpointsearchgroup.com/">NorthPoint</a>. Part of NorthPoint Search Group. All rights reserved.</span>
       <a href="contact.html">Privacy &amp; Terms</a>
     </div>
   </div>

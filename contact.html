@@ -28,7 +28,7 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "EmploymentAgency",
       "@id": "https://www.medpointpartners.com/#organization",
       "name": "MedPoint Partners",
       "alternateName": [
@@ -40,7 +40,7 @@
         "@type": "ImageObject",
         "url": "https://www.medpointpartners.com/img/medpoint-logo.png"
       },
-      "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, finance, and leadership — as temp, temp-to-perm, and direct hire, with payrolling as Employer of Record.",
+      "description": "Healthcare recruiting and staffing firm in Atlanta, GA. We place clinical and non-clinical healthcare professionals — nurses, nurse practitioners, physician assistants, physicians, allied health and therapy, medical assistants and front office, coding, billing and revenue cycle, and leadership — as temp, temp-to-hire, and direct hire, with payrolling as Employer of Record.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Atlanta",
@@ -51,14 +51,19 @@
         "+1-404-250-0790",
         "+1-678-777-5627"
       ],
-      "email": "gus@stafffinancial.com",
       "areaServed": [
         "Atlanta, GA",
         "Georgia",
         "Southeast United States",
         "United States"
       ],
-      "sameAs": []
+      "sameAs": [],
+      "parentOrganization": {
+        "@type": "Organization",
+        "@id": "https://www.northpointsearchgroup.com/#organization",
+        "name": "NorthPoint Search Group",
+        "url": "https://www.northpointsearchgroup.com/"
+      }
     }
   ]
 }
@@ -80,11 +85,11 @@
         <li><a href="temp-staffing.html">Temp Staffing</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="partners.html">Partner Program</a></li>
-        <li><a href="https://www.hireschoolstaff.com/">School Staffing ↗</a></li>
+        <li><a href="https://www.iepstaff.com/">School Staffing ↗</a></li>
       </ul>
       <div class="nav-ctas">
         <a href="https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg" target="_blank" rel="noopener" class="btn btn-outline-dark">Job Board</a>
-        <a href="request-talent.html" class="btn btn-primary">Hire Top Talent</a>
+        <a href="request-talent.html" class="btn btn-primary">Get Started</a>
       </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -114,7 +119,7 @@
           </div>
           <div class="contact-item">
             <div class="contact-icon"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
-            <div><div class="contact-label">Email</div><a href="mailto:gus@stafffinancial.com">gus@stafffinancial.com</a></div>
+            <div><div class="contact-label">Get Started</div><a href="request-talent.html">Tell us about the role</a></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -170,7 +175,7 @@
         <a href="index.html" class="brand-chip" aria-label="MedPoint Partners — home">
           <img src="img/medpoint-logo.png" alt="MedPoint Partners — powered by NorthPoint" class="brand-logo" width="170" height="58">
         </a>
-        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-perm and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
+        <p>Healthcare recruiting and staffing, clinical and non-clinical — temp, temp-to-hire and direct hire — backed by NorthPoint's 20+ years of recruiting.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
@@ -179,17 +184,24 @@
           <li><a href="temp-staffing.html">Temp Staffing</a></li>
           <li><a href="partners.html">Partner Program</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="https://www.hireschoolstaff.com/">School Staffing ↗</a></li>
+          <li><a href="https://www.iepstaff.com/">School Staffing ↗</a></li>
           <li><a href="https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg" target="_blank" rel="noopener">Job Board ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>NorthPoint Search Group</h4>
+        <ul>
+          <li><a href="https://www.northpointsearchgroup.com/">Part of NorthPoint Search Group</a></li>
+          <li><a href="https://www.stafffinancial.com/">Staff Financial: Accounting &amp; Finance</a></li>
+          <li><a href="index.html#areas">Metro Atlanta Areas</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:gus@stafffinancial.com">gus@stafffinancial.com</a></li>
           <li><a href="tel:+14042500790">404-250-0790</a></li>
           <li><a href="tel:+16787775627">678-777-5627</a></li>
-          <li><a href="request-talent.html">Request Healthcare Talent</a></li>
+          <li><a href="request-talent.html">Get Started</a></li>
           <li><a href="contact.html">Send a Message</a></li>
           <li><span>Atlanta, GA · Serving the Southeast &amp; nationwide</span></li>
         </ul>
@@ -197,7 +209,7 @@
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
-      <span>&copy; 2026 MedPoint Partners. Powered by NorthPoint. All rights reserved.</span>
+      <span>&copy; 2026 MedPoint Partners. Powered by <a href="https://www.northpointsearchgroup.com/">NorthPoint</a>. Part of NorthPoint Search Group. All rights reserved.</span>
       <a href="contact.html">Privacy &amp; Terms</a>
     </div>
   </div>
