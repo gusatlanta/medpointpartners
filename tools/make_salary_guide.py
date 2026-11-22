@@ -26,6 +26,17 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;8
 SCHOOL_DAYS, YEAR_DAYS = 190, 260
 AMBER = "#D9822B"
 esc = html.escape
+# Same standard GA4 snippet as tools/build_pages.py. Kept here so this page
+# stays tagged when the guide is rebuilt on its own.
+GA_TAG = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PP39BB32PP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PP39BB32PP');
+</script>"""
 
 SLP = PAY[0]
 OT = PAY[1]
@@ -298,7 +309,7 @@ def build():
 
 
 def page(title, body, extra=""):
-    return ("<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+    return ("<!doctype html><html lang='en'><head>" + GA_TAG + "<meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width, initial-scale=1'>"
             f"<title>{esc(title)}</title>{extra}<link href='{FONTS}' rel='stylesheet'>"
             f"<style>{CSS}</style></head><body>{body}</body></html>")
