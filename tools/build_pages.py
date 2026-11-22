@@ -23,6 +23,16 @@ from school_states import STATES
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent
 SITE = "https://www.medpointpartners.com"
+# Standard GA4 gtag.js snippet. Google asks for it immediately after <head>.
+GA_TAG = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PP39BB32PP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PP39BB32PP');
+</script>"""
 NEW_SITE = "https://www.iepstaff.com"   # where the school pages moved
 JOB_BOARD = "https://host.pcrecruiter.net/pcrbin/jobboard.aspx?uid=Staff%20Financial.npsg"
 EMAIL = "gus@stafffinancial.com"
@@ -195,9 +205,11 @@ def head(file, title, desc, extra_schema=None, extra_head="", robots="index, fol
     og = f'{SITE}/img/{OG_IMAGES.get(file, "og-image.png")}'
     graph = [ORG] + (extra_schema or [])
     schema = json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False)
+    ga = "\n".join(("  " + line) if line else "" for line in GA_TAG.splitlines())
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
+{ga}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -3295,7 +3307,9 @@ OLD_LINKS = {
 def forward_page(to):
     url = SITE + to
     return f'''<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8">
+<html lang="en"><head>
+{GA_TAG}
+<meta charset="UTF-8">
 <title>MedPoint Partners</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="{url}">
@@ -3310,7 +3324,9 @@ def moved_page(file):
     unlike forward_page it stays indexable. ?d= and #anchors come along for printed QR codes."""
     url = f"{NEW_SITE}/{file}"
     return f'''<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8">
+<html lang="en"><head>
+{GA_TAG}
+<meta charset="UTF-8">
 <title>Hire School Staff</title>
 <link rel="canonical" href="{url}">
 <meta http-equiv="refresh" content="0; url={url}">
