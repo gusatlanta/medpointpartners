@@ -47,10 +47,76 @@ window.switchMegaTab = function (tab, btn) {
 
   // Form submit — posts to the hundredx public inquiry API
   var HUNDREDX_API = 'https://100xrecruiting.com';
-  document.querySelectorAll('form[data-form]').forEach(function (form) {
+
+  // HUMAN_CHECK_v1 (Gus 11-27, after bot talent requests full of random letters): Cloudflare's
+  // "Verify you are human" box above every form's submit button, plus a hidden honeypot field
+  // only bots fill. 100X checks the box's token (INQUIRY_HUMAN_CHECK_v1 in its app.py). The key
+  // is 100X's public Turnstile site key; medpointpartners.com has to be on its hostname list in
+  // Cloudflare, or the box shows error 110200. This page never blocks more than the server
+  // does: if the box can't load, the form still sends and 100X decides.
+  var TURNSTILE_SITE_KEY = '0x4AAAAAAFVLCgI7uu3nWXEb';
+  var TICK_MSG = 'Please tick the "Verify you are human" box above, then send again.';
+  var forms = document.querySelectorAll('form[data-form]');
+  var checks = [];
+
+  function renderChecks() {
+    checks.forEach(function (c) {
+      if (c.id != null || !window.turnstile) return;
+      try {
+        c.id = window.turnstile.render(c.box, {
+          sitekey: TURNSTILE_SITE_KEY, theme: 'light', 'response-field': false,
+          callback: function () { c.failed = null; c.msg.hidden = true; },
+          'error-callback': function (code) { c.failed = code || 'error'; },
+        });
+      } catch (err) { c.failed = 'render'; }
+    });
+  }
+  function humanToken(c) {
+    try { return (c.id != null && window.turnstile && window.turnstile.getResponse(c.id)) || ''; }
+    catch (err) { return ''; }
+  }
+  function resetCheck(c) {
+    try { if (c.id != null && window.turnstile) window.turnstile.reset(c.id); } catch (err) {}
+  }
+  function showMsg(c, text) { c.msg.textContent = text; c.msg.hidden = false; }
+
+  if (forms.length) {
+    window.mpTurnstileReady = renderChecks;
+    var ts = document.createElement('script');
+    ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=mpTurnstileReady';
+    ts.async = true;
+    ts.defer = true;
+    document.head.appendChild(ts);
+  }
+
+  forms.forEach(function (form) {
+    var hp = document.createElement('div');
+    hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    hp.innerHTML = '<label>Leave this empty <input type="text" name="hp_website" tabindex="-1" autocomplete="off"></label>';
+    form.appendChild(hp);
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var box = document.createElement('div');
+    box.className = 'human-check';
+    box.style.cssText = 'margin:4px 0 14px;min-height:65px;';
+    var msg = document.createElement('p');
+    msg.className = 'human-check-msg';
+    msg.setAttribute('role', 'alert');
+    msg.hidden = true;
+    msg.style.cssText = 'color:#b42318;font-size:.88rem;font-weight:500;margin:-6px 0 12px;';
+    var spot = submitBtn ? submitBtn : null;
+    (spot ? spot.parentNode : form).insertBefore(box, spot);
+    (spot ? spot.parentNode : form).insertBefore(msg, spot);
+    var check = { box: box, msg: msg, id: null, failed: null };
+    checks.push(check);
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
+      var token = humanToken(check);
+      if (!token && check.id != null && !check.failed) { showMsg(check, TICK_MSG); return; }
+      msg.hidden = true;
       var btn = form.querySelector('button[type="submit"]');
       var successEl = form.querySelector('.alert-success');
       var orig = btn ? btn.textContent : '';
@@ -83,13 +149,21 @@ window.switchMegaTab = function (tab, btn) {
             employer_company: d.company || '',
             inquiry_type:     form.dataset.form,
             notes:            notes,
+            hp_website:       d.hp_website || '',
+            cf_turnstile_response: token,
           }),
         });
         var json = await res.json().catch(function () { return {}; });
+        resetCheck(check);   // a token works once; a second send needs a fresh one
         if (json.ok) {
           form.reset();
           if (successEl) successEl.style.display = 'block';
           if (btn) { btn.textContent = 'Sent ✓'; }
+        } else if (json.error === 'human_check') {
+          if (btn) { btn.disabled = false; btn.textContent = orig; }
+          showMsg(check, check.failed
+            ? 'The "Verify you are human" box didn\'t load. Please refresh the page and try again, or call 404-250-0790.'
+            : (json.message || TICK_MSG));
         } else {
           throw new Error(json.error || 'server error');
         }
@@ -99,4 +173,5 @@ window.switchMegaTab = function (tab, btn) {
       }
     });
   });
+  if (window.turnstile) renderChecks();
 })();
